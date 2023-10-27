@@ -10,7 +10,7 @@ export class AuthServiceService {
 
   constructor(private http:HttpClient) { }
 
-  public url = 'http://localhost/proyectoDIU/src/app/backend/admin/';
+  public url = 'http://localhost/DIU/src/app/backend/admin/';
 
   consulta(data: AuthInterfaces):Observable<[]>{
     return this.http.post<[]>(`${this.url}readAdmin.php`, data);

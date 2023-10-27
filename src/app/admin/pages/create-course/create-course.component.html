@@ -5,29 +5,31 @@
         <div class="flex flex-row flex-wrap ">
             <div class="flex flex-column w-30rem h-30rem">
             
-            
+                <form [formGroup]="myForm" (ngSubmit)="onSave()">
                 <mat-form-field appearance="outline">
                     <mat-label>Codigo curso</mat-label>
-                    <input type="number" matInput placeholder="codigo del curso">
+                    <input type="number" matInput placeholder="codigo del curso" formControlName="codigoCurso">
                 </mat-form-field>
             
                 <mat-form-field appearance="outline">
                     <mat-label>Nombre del curso</mat-label>
-                    <input type="text" matInput placeholder="Nombre del curso">
+                    <input type="text" matInput placeholder="Nombre del curso" formControlName="nombre">
                 </mat-form-field>
                     
                 <mat-form-field appearance="outline">
-                    <mat-label>Profesor asignado</mat-label>
-                    <input type="text" matInput placeholder="Profesor asignado">
-                </mat-form-field>
+                    <mat-label>Elige profesor</mat-label>
+                    <mat-select formControlName="profesorAsignado">
+                      <mat-option *ngFor="let profesor of teacher" [value]="profesor.nombre"> {{ profesor.nombre }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             
                 <div class=" d-flex justify-content-center">
-                    <button mat-button mat-flat-button color="primary" class="w-12rem">
+                    <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit" >
                         <mat-icon>save_as</mat-icon>
                         Crear curso
                     </button>
                 </div>
-            
+            </form>
                 
             
             </div>

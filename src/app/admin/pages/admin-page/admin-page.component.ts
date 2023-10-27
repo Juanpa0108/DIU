@@ -1,23 +1,8 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface PeriodicElement {
-  codigo: number;
-  Tipo: string;
-  Nombre: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {codigo: 1, Tipo: 'Hydrogen', Nombre: 'Mbappe'},
-  {codigo: 2, Tipo: 'Helium', Nombre: 'Mbappe'},
-  {codigo: 3, Tipo: 'Lithium', Nombre: 'Mbappe'},
-  {codigo: 4, Tipo: 'Beryllium', Nombre: 'Mbappe'},
-  {codigo: 1, Tipo: 'Hydrogen', Nombre: 'Mbappe'},
-  {codigo: 2, Tipo: 'Helium', Nombre: 'Mbappe'},
-  {codigo: 3, Tipo: 'Lithium', Nombre: 'Mbappe'},
-  {codigo: 4, Tipo: 'Beryllium', Nombre: 'Mbappe'},
-];
+import { user, curso } from '../../interfaces/user-data';
+import { AdminServiceService } from '../../services/admin-service.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -25,14 +10,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./admin-page.component.css']
 })
 
-export class AdminPageComponent implements AfterViewInit{
-  @ViewChild(MatPaginator) paginator!:MatPaginator;
-  ngAfterViewInit(): void {
-    this.dataSource.paginator= this.paginator;
+export class AdminPageComponent implements AfterViewInit, OnInit{
+  constructor(
+    private myService: AdminServiceService
+  ){}
+
+  public usuarios: user[]=[]
+  dataSource = new MatTableDataSource<user>([]);
+
+  public cursos: curso[]=[]
+  dataCurso = new MatTableDataSource<curso>([]);
+
+  ngOnInit(): void {
+    this.myService.traerUsuarios().subscribe((res) => {
+      this.usuarios=res; 
+      this.dataSource = new MatTableDataSource(this.usuarios); })
+
+    this.myService.traerCursos().subscribe((res) => {
+      this.cursos=res; 
+      this.dataCurso = new MatTableDataSource(this.cursos); })
   }
 
-  displayedColumns: string[] = ['codigo', 'Tipo', 'Nombre'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  @ViewChild(MatPaginator) paginator!:MatPaginator;
+  @ViewChild('paginador') paginador!:MatPaginator;
+  ngAfterViewInit(): void {
+    this.dataSource.paginator= this.paginator;
+    this.dataCurso.paginator= this.paginador;
+  }
+
+  displayedColumns: string[] = ['codigo', 'nombre', 'tipo'];
+  columCursos: string[]= ['codigo', 'nombreCurso', 'profesorAsignado'];
 
 
 }

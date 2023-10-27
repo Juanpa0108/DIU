@@ -5,20 +5,20 @@
     <div class="flex flex-row flex-wrap ">
         <div class="flex flex-column w-30rem h-30rem">
         
-        
+            <form [formGroup]="myForm" (ngSubmit)="onSave()">
             <mat-form-field appearance="outline">
                 <mat-label>Codigo usuario</mat-label>
-                <input type="number" matInput placeholder="codigo usuario">
+                <input type="number" matInput placeholder="codigo usuario" formControlName="codigoUsuario">
             </mat-form-field>
         
             <mat-form-field appearance="outline">
                 <mat-label>Nombre de usuario</mat-label>
-                <input type="text" matInput placeholder="Nombre de usuario">
+                <input type="text" matInput placeholder="Nombre de usuario" formControlName="usuario">
             </mat-form-field>
                 
             <mat-form-field appearance="outline">
                 <mat-label>Elige rol de usuario</mat-label>
-                <mat-select>
+                <mat-select formControlName="rol">
                   <mat-option value="estudiante"> Estudiante </mat-option>
                   <mat-option value="profesor">Profesor</mat-option>
                 </mat-select>
@@ -26,16 +26,16 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Contraseña</mat-label>
-                <input type="password" matInput placeholder="Contraseña">
+                <input type="text" matInput placeholder="Contraseña" formControlName="password">
             </mat-form-field>
         
             <div class=" d-flex justify-content-center">
-                <button mat-button mat-flat-button color="primary" class="w-12rem">
+                <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
                     <mat-icon>save_as</mat-icon>
                     Crear usuario
                 </button>
             </div>
-        
+        </form>
             
         
         </div>

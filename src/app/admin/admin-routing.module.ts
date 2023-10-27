@@ -5,6 +5,8 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { CreateUserComponent } from './pages/create-user/create-user.component';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
 import { GenerateReportsComponent } from './pages/generate-reports/generate-reports.component';
+import { DeleteUserPageComponent } from './pages/delete-user-page/delete-user-page.component';
+import { DeleteCoursePageComponent } from './pages/delete-course-page/delete-course-page.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,8 @@ const routes: Routes = [
       {path: 'createUser', component: CreateUserComponent},
       {path: 'createCourse', component: CreateCourseComponent},
       {path: 'generateReports', component: GenerateReportsComponent},
+      {path: 'deleteUser', component: DeleteUserPageComponent},
+      {path: 'deleteCourse', component: DeleteCoursePageComponent},
       {path: '**', redirectTo: 'admin'}
      ]
   }

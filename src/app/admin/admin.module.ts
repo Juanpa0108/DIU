@@ -10,6 +10,7 @@ import { CreateCourseComponent } from './pages/create-course/create-course.compo
 import { GenerateReportsComponent } from './pages/generate-reports/generate-reports.component';
 import { DeleteUserPageComponent } from './pages/delete-user-page/delete-user-page.component';
 import { DeleteCoursePageComponent } from './pages/delete-course-page/delete-course-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -26,7 +27,8 @@ import { DeleteCoursePageComponent } from './pages/delete-course-page/delete-cou
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }
