@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="flex flex-row flex-wrap">
+        <div class="flex flex-column w-30rem h-20rem">
+
+            <h3>Iniciar sesión</h3>
+            <form [formGroup]="myForm" (ngSubmit)="onLogin()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input formControlName="usuario" type="text" matInput placeholder="Nombre de usuario">
+                </mat-form-field>
+            
+            
+                    <mat-form-field appearance="outline">
+                      <mat-label>Enter your password</mat-label>
+                      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+            
+                <button mat-button mat-flat-button color="primary" type="submit">
+                    <mat-icon>save_as</mat-icon>
+                    Ingresar
+                </button>
+            
+                <div class="flex justify-content-end mt-5">
+                    <a routerLink="/auth/cambioPassword">¿Olvidó su contraseña?</a>
+                </div>
+            </form>
+        
+        </div>
+    </div>
+</div>
