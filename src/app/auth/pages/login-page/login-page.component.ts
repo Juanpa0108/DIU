@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { user } from 'src/app/admin/interfaces/user-data';
 
 @Component({
   selector: 'app-login-page',
@@ -22,12 +23,23 @@ export class LoginPageComponent {
   })
 
   public hide:boolean = true;
-
+  public usuario!:user;
   
   onLogin():void{
     this.miservice.consulta(this.myForm.value).subscribe( res => {
       if(res){
         this.router.navigateByUrl('/admin/admin');
+      }else if(!res){
+        this.miservice.userLogin(this.myForm.value).subscribe(res =>{
+          if(res){
+            this.usuario = res;
+            if(this.usuario.tipo == 'profesor'){
+              this.router.navigate(['/teacher/teacher', this.usuario.codigo])
+            }else{
+              this.router.navigate(['/student/student', this.usuario.codigo])
+            }
+          }
+        })
       }else{
         // TODOOO: SANCKBAR CONFIGURATION
       }

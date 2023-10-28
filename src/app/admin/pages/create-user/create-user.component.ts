@@ -23,7 +23,7 @@ rol: ['', [ Validators.required]],
 
 onSave(){
   this.myService.crearUsuario(this.myForm.value).subscribe(res => {});
-  this.myForm.reset({codigoUsuario: 0, usaurio:'', password: '', rol:''});
+  this.myForm.reset({codigoUsuario: '', usaurio:'', password: '', rol:''});
 }
 
 }

@@ -33,7 +33,7 @@ export class CreateCourseComponent implements OnInit {
 
 onSave(){
   this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
-  this.myForm.reset({codigoCurso: 0, nombre:'', profesorAsignado: ''});
+  this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
 }
 
 }
