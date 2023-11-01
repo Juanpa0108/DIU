@@ -42,7 +42,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSnackBarModule,
     MatToolbarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ]
 })
 export class MaterialModule { }

@@ -9,11 +9,12 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     LoginPageComponent,
     LayoutPageComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,

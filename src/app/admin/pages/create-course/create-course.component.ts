@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminServiceService } from '../../services/admin-service.service';
 import { user } from '../../interfaces/user-data';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-course',
@@ -12,11 +13,12 @@ export class CreateCourseComponent implements OnInit {
 
   constructor( 
     private myService:AdminServiceService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private _snackBar: MatSnackBar
     ){}
 
     public myForm:FormGroup = this.fb.group({
-    codigoCurso: [0, [ Validators.required, Validators.minLength(3) ]],
+    codigoCurso: [0, [ Validators.required, Validators.maxLength(4) ]],
     nombre: ['', [ Validators.required ]],
     profesorAsignado: ['', [ Validators.required ]],
     })
@@ -29,11 +31,43 @@ export class CreateCourseComponent implements OnInit {
     })
   }
 
-
-
 onSave(){
+  if(! this.myForm.valid) return;
+
+
   this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
+  this._snackBar.open("Curso creado correctamente", "😊", {
+    duration: 3000, 
+    verticalPosition: "top",
+  });
   this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
+  this.myForm.valid == true;
+}
+
+isValidField( field:string ){
+  return this.myForm.controls[field].errors 
+       && this.myForm.controls[field].touched;
+}
+
+getFieldError(field:string):string | null{
+    
+  if( !this.myForm.controls[field] ) return null;
+
+  const errors = this.myForm.controls[field].errors || {};
+
+  for (const key of Object.keys(errors)) {
+    switch(key){
+      case 'required':
+          return 'Este campo es requerido';
+      
+      case 'maxLength':
+        return 'Maximo 4 caracteres'
+
+    }
+  }
+
+  return null;
+
 }
 
 }
