@@ -3,6 +3,9 @@
         <div class="flex flex-column w-30rem h-20rem">
 
             <h3>Iniciar sesión</h3>
+            <span *ngIf="passwordIncorrecta" class="form-text text-danger">
+                Verifique sus credenciales
+            </span>
             <form [formGroup]="myForm" (ngSubmit)="onLogin()">
                 <mat-form-field appearance="outline">
                     <mat-label>Codigo de usuario</mat-label>
@@ -13,7 +16,6 @@
                     class="form-text text-danger">
                     {{ getFieldError('usuario') }}
                 </span>
-            
             
                     <mat-form-field appearance="outline">
                       <mat-label>Contraseña</mat-label>

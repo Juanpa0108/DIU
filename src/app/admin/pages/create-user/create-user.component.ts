@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminServiceService } from '../../services/admin-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthServiceService } from 'src/app/auth/services/auth-service.service';
 
 @Component({
   selector: 'app-create-user',
@@ -13,27 +14,38 @@ export class CreateUserComponent {
   constructor(
     private myService:AdminServiceService,
       private fb:FormBuilder,
-      private _snackBar: MatSnackBar
+      private _snackBar: MatSnackBar,
+      private authService:AuthServiceService
     ){}
 
 public myForm:FormGroup = this.fb.group({
-codigoUsuario: [0, [ Validators.required, Validators.maxLength(7) ]],
+codigoUsuario: ['', [ Validators.required, Validators.pattern('^[0-9]{7}$') ]],
 usuario: ['', [ Validators.required ]],
 password: ['', [ Validators.required ]],
 rol: ['', [ Validators.required]],
 })
 
+//public valor:number = 0;
+
 onSave(){
   if(!this.myForm.valid) return;
-
-
-  this.myService.crearUsuario(this.myForm.value).subscribe(res => {});
-  this._snackBar.open("Usuario creado correctamente", "😊", {
-    duration: 3000, 
-    verticalPosition: "top",
-  });
-  this.myForm.reset({codigoUsuario: '', usaurio:'', password: '', rol:''});
-  this.myForm.valid == true;
+    //this.valor=this.myForm.get('codigoUsuario')?.value
+  this.authService.confirmPassword(this.myForm.get('codigoUsuario')?.value).subscribe( res => {
+    if(res){
+      this.myService.crearUsuario(this.myForm.value).subscribe(res => {});
+      this._snackBar.open("Usuario creado correctamente", "😊", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
+      this.myForm.reset({codigoUsuario: '', usaurio:'', password: '', rol:''});
+      this.myForm.valid == true;
+    }else{
+      this._snackBar.open("Usuario ya existente", "😅", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
+    }
+  })
 }
 
 isValidField( field:string ){
@@ -52,8 +64,8 @@ getFieldError(field:string):string | null{
       case 'required':
           return 'Este campo es requerido';
       
-      case 'maxLength':
-        return 'Maximo 7 caracteres'
+      case 'pattern':
+        return 'este campo solo admite 7 digitos';
 
     }
   }

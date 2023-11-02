@@ -9,20 +9,20 @@
             <mat-form-field appearance="outline">
                 <mat-label>Codigo usuario</mat-label>
                 <input type="number" matInput placeholder="Ingrese codigo de usuario" formControlName="codigoUsuario">
-                <span *ngIf="isValidField('codigoUsuario')"
-                          class="form-text text-danger">
-                       {{ getFieldError('codigoUsuario') }}
-                    </span>
             </mat-form-field>
+            <span *ngIf="isValidField('codigoUsuario')"
+                      class="form-text text-danger">
+                   {{ getFieldError('codigoUsuario') }}
+                </span>
         
             <mat-form-field appearance="outline">
                 <mat-label>Nombre de usuario</mat-label>
                 <input type="text" matInput placeholder="Ingrese nombre de usuario" formControlName="usuario">
-                <span *ngIf="isValidField('usuario')"
-                          class="form-text text-danger">
-                       {{ getFieldError('usuario') }}
-                    </span>
             </mat-form-field>
+            <span *ngIf="isValidField('usuario')"
+                      class="form-text text-danger">
+                   {{ getFieldError('usuario') }}
+                </span>
                 
             <mat-form-field appearance="outline">
                 <mat-label>Elige rol de usuario</mat-label>
@@ -30,20 +30,20 @@
                   <mat-option value="estudiante"> Estudiante </mat-option>
                   <mat-option value="profesor">Profesor</mat-option>
                 </mat-select>
-                <span *ngIf="isValidField('rol')"
-                          class="form-text text-danger">
-                       {{ getFieldError('rol') }}
-                    </span>
-              </mat-form-field>
+            </mat-form-field>
+            <span *ngIf="isValidField('rol')"
+                      class="form-text text-danger">
+                   {{ getFieldError('rol') }}
+                </span>
 
               <mat-form-field appearance="outline">
                 <mat-label>Contraseña</mat-label>
                 <input type="text" matInput placeholder="Ingrese contraseña" formControlName="password">
-                <span *ngIf="isValidField('password')"
-                          class="form-text text-danger">
-                       {{ getFieldError('password') }}
-                    </span>
             </mat-form-field>
+            <span *ngIf="isValidField('password')"
+                      class="form-text text-danger">
+                   {{ getFieldError('password') }}
+                </span>
         
             <div class=" d-flex justify-content-center">
                 <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">

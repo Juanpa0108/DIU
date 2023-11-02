@@ -18,7 +18,7 @@ export class CreateCourseComponent implements OnInit {
     ){}
 
     public myForm:FormGroup = this.fb.group({
-    codigoCurso: [0, [ Validators.required, Validators.maxLength(4) ]],
+    codigoCurso: ['', [ Validators.required, Validators.pattern('^[0-9]{4}$') ]],
     nombre: ['', [ Validators.required ]],
     profesorAsignado: ['', [ Validators.required ]],
     })
@@ -60,8 +60,8 @@ getFieldError(field:string):string | null{
       case 'required':
           return 'Este campo es requerido';
       
-      case 'maxLength':
-        return 'Maximo 4 caracteres'
+      case 'pattern':
+        return 'Este campo solo admite 4 digitos';
 
     }
   }
