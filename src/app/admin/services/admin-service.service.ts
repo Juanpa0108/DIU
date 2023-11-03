@@ -11,6 +11,7 @@ export class AdminServiceService {
   constructor(private http: HttpClient) { }
 
   public url: string = 'http://localhost/DIU/src/app/backend/admin/';
+  public url2 = 'http://localhost/DIU/src/app/backend/login/';
 
   crearUsuario(form: user): Observable<[]>{
     return this.http.post<[]>(`${this.url}createUser.php`, form);
@@ -30,6 +31,14 @@ export class AdminServiceService {
 
   traerProfesor(): Observable<user[]> {
     return this.http.get<user[]>(`${this.url}userByteacher.php`)
+  }
+
+  userId(codigo: string): Observable<user>{
+    return this.http.post<user>(`${this.url2}userByCode.php`, {codigo});
+  }
+
+  courseId(codigo: string): Observable<curso>{
+    return this.http.post<curso>(`${this.url2}courseByCode.php`, {codigo});
   }
 
 }

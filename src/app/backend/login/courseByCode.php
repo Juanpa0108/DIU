@@ -7,7 +7,7 @@
     $json = file_get_contents('php://input');
     $params = json_decode($json);
     
-    $consulta = "SELECT * FROM usuarios WHERE codigo = ?";
+    $consulta = "SELECT * FROM cursos WHERE codigo = ?";
 
     $stmt = mysqli_prepare($conexion, $consulta);
             mysqli_stmt_bind_param($stmt, "s", $params->codigo);

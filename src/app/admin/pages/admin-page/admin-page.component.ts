@@ -31,11 +31,12 @@ export class AdminPageComponent implements AfterViewInit, OnInit{
       this.dataCurso = new MatTableDataSource(this.cursos); })
   }
 
-  @ViewChild(MatPaginator) paginator!:MatPaginator;
-  @ViewChild('paginador') paginador!:MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild('paginator') paginator!:MatPaginator;
+  // @ViewChild('paginador') paginador!:MatPaginator;
   ngAfterViewInit(): void {
     this.dataSource.paginator= this.paginator;
-    this.dataCurso.paginator= this.paginador;
+    //this.dataCurso.paginator= this.paginador;
   }
 
   displayedColumns: string[] = ['codigo', 'nombre', 'tipo'];

@@ -23,8 +23,6 @@ export class AuthServiceService {
     return this.http.post<user>(`${this.url2}userLogin.php`, data);
   }
 
-  confirmPassword(codigo: string): Observable<user>{
-    return this.http.post<user>(`${this.url2}userByCode.php`, {codigo});
-  }
+  
 
 }

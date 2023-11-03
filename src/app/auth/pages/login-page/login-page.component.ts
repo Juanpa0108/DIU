@@ -72,7 +72,7 @@ export class LoginPageComponent {
     for (const key of Object.keys(errors)) {
       switch(key){
         case 'required':
-            return 'Este campo es requerido';
+            return '* Este campo es requerido';
 
       }
     }

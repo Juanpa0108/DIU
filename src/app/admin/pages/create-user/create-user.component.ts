@@ -30,21 +30,21 @@ rol: ['', [ Validators.required]],
 onSave(){
   if(!this.myForm.valid) return;
     //this.valor=this.myForm.get('codigoUsuario')?.value
-  this.authService.confirmPassword(this.myForm.get('codigoUsuario')?.value).subscribe( res => {
-    if(res){
-      this.myService.crearUsuario(this.myForm.value).subscribe(res => {});
-      this._snackBar.open("Usuario creado correctamente", "😊", {
-        duration: 3000, 
-        verticalPosition: "top",
-      });
-      this.myForm.reset({codigoUsuario: '', usaurio:'', password: '', rol:''});
-      this.myForm.valid == true;
-    }else{
-      this._snackBar.open("Usuario ya existente", "😅", {
-        duration: 3000, 
-        verticalPosition: "top",
-      });
-    }
+  this.myService.userId(this.myForm.get('codigoUsuario')!.value).subscribe( res => {
+     if(!res){
+       this.myService.crearUsuario(this.myForm.value).subscribe(res => {});
+       this._snackBar.open("Usuario creado correctamente", "😊", {
+         duration: 3000, 
+         verticalPosition: "top",
+       });
+       this.myForm.reset({codigoUsuario: '', usaurio:'', password: '', rol:''});
+       this.myForm.valid == true;
+     }else{
+       this._snackBar.open("Usuario ya existente", "😅", {
+         duration: 3000, 
+         verticalPosition: "top",
+       });
+     }
   })
 }
 
