@@ -9,31 +9,31 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Codigo curso</mat-label>
                     <input type="number" matInput placeholder="Ingrese codigo del curso" formControlName="codigoCurso">
-                    <span *ngIf="isValidField('codigoCurso')"
-                          class="form-text text-danger">
-                       {{ getFieldError('codigoCurso') }}
-                    </span>
                 </mat-form-field>
+                <span *ngIf="isValidField('codigoCurso')"
+                class="form-text text-danger">
+             {{ getFieldError('codigoCurso') }}
+          </span>
             
                 <mat-form-field appearance="outline">
                     <mat-label>Nombre del curso</mat-label>
                     <input type="text" matInput placeholder="Ingrese nombre del curso" formControlName="nombre">
-                    <span *ngIf="isValidField('nombre')"
-                          class="form-text text-danger">
-                       {{ getFieldError('nombre') }}
-                    </span>
                 </mat-form-field>
+                <span *ngIf="isValidField('nombre')"
+                      class="form-text text-danger">
+                   {{ getFieldError('nombre') }}
+                </span>
                     
                 <mat-form-field appearance="outline">
                     <mat-label>Elige profesor</mat-label>
                     <mat-select formControlName="profesorAsignado">
                       <mat-option *ngFor="let profesor of teacher" [value]="profesor.nombre"> {{ profesor.nombre }} </mat-option>
                     </mat-select>
-                    <span *ngIf="isValidField('profesorAsignado')"
-                          class="form-text text-danger">
-                       {{ getFieldError('profesorAsignado') }}
-                    </span>
-                  </mat-form-field>
+                </mat-form-field>
+                <span *ngIf="isValidField('profesorAsignado')"
+                      class="form-text text-danger">
+                   {{ getFieldError('profesorAsignado') }}
+                </span>
             
                 <div class=" d-flex justify-content-center">
                     <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit" >
