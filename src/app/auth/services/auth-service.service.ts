@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthInterfaces } from '../interfaces/auth-interfaces';
 import { user } from 'src/app/admin/interfaces/user-data';
+import { AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,7 @@ export class AuthServiceService {
   userLogin(data:AuthInterfaces):Observable<user>{
     return this.http.post<user>(`${this.url2}userLogin.php`, data);
   }
+
+  
 
 }

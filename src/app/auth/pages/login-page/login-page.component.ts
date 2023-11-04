@@ -24,36 +24,39 @@ export class LoginPageComponent {
     password: ['', [ Validators.required ]]
   })
 
+  public passwordIncorrecta:boolean = false;
   public hide:boolean = true;
   public usuario!:user;
+
+  searchUser(): void{
+    this.miservice.userLogin(this.myForm.value).subscribe(res =>{
+      if(res){
+        this.usuario = res;
+        if(this.usuario.tipo == 'profesor'){
+          this.router.navigate(['/teacher/teacher', this.usuario.codigo])
+        }else{
+          this.router.navigate(['/student/student', this.usuario.codigo])
+        }
+      }else{
+        this.passwordIncorrecta = true
+      }
+    })
+
+  }
   
   onLogin():void{
     if(!this.myForm.valid) return;
-
 
     this.miservice.consulta(this.myForm.value).subscribe( res => {
       if(res){
         this.router.navigateByUrl('/admin/admin');
       }else if(!res){
-        this.miservice.userLogin(this.myForm.value).subscribe(res =>{
-          if(res){
-            this.usuario = res;
-            if(this.usuario.tipo == 'profesor'){
-              this.router.navigate(['/teacher/teacher', this.usuario.codigo])
-            }else{
-              this.router.navigate(['/student/student', this.usuario.codigo])
-            }
-          }else{
-            this._snackBar.open("Usuario no encontrado", "😔", {
-              duration: 3000, 
-              verticalPosition: "top",
-            });
+        this.searchUser()
           }
+          
         })
-      }else{
       }
-    })
-  }
+  
 
   isValidField( field:string ){
     return this.myForm.controls[field].errors 
@@ -69,7 +72,7 @@ export class LoginPageComponent {
     for (const key of Object.keys(errors)) {
       switch(key){
         case 'required':
-            return 'Este campo es requerido';
+            return '* Este campo es requerido';
 
       }
     }

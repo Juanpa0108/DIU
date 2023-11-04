@@ -18,7 +18,7 @@ export class CreateCourseComponent implements OnInit {
     ){}
 
     public myForm:FormGroup = this.fb.group({
-    codigoCurso: [0, [ Validators.required, Validators.max(9999) ]],
+    codigoCurso: [0, [ Validators.required, Validators.maxLength(4) ]],
     nombre: ['', [ Validators.required ]],
     profesorAsignado: ['', [ Validators.required ]],
     })
@@ -42,11 +42,6 @@ onSave(){
   });
   this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
   this.myForm.valid == true;
-}else{
-  console.log("asdad");
-  console.log(this.myForm.controls['codigoCurso'].errors)
-}
-
 }
 
 isValidField( field:string ){
@@ -65,7 +60,7 @@ getFieldError(field:string):string | null{
       case 'required':
           return 'Este campo es requerido';
       
-      case 'max':
+      case 'maxLength':
         return 'Maximo 4 caracteres'
 
     }
