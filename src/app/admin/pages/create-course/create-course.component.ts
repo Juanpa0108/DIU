@@ -18,12 +18,11 @@ export class CreateCourseComponent implements OnInit {
     ){}
 
     public myForm:FormGroup = this.fb.group({
-    codigoCurso: [0, [ Validators.required, Validators.maxLength(4) ]],
+    codigoCurso: ['', [ Validators.required, Validators.pattern('^[0-9]{4}$') ]],
     nombre: ['', [ Validators.required ]],
     profesorAsignado: ['', [ Validators.required ]],
     })
-
-    public teacher:user[] = []
+public teacher:user[] = []
 
   ngOnInit(): void {
     this.myService.traerProfesor().subscribe( res => {
@@ -32,16 +31,25 @@ export class CreateCourseComponent implements OnInit {
   }
 
 onSave(){
-  if(this.myForm.valid){
+  if(! this.myForm.valid) return;
 
+  this.myService.courseId(this.myForm.get('codigoCurso')!.value).subscribe(res =>{
+    if(!res){
+      this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
+      this._snackBar.open("Curso creado correctamente", "😊", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
+      this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
+      this.myForm.valid == true;
+    }else{
+      this._snackBar.open("El curso ya existe", "😅", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
+    }
+  })
 
-  this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
-  this._snackBar.open("Curso creado correctamente", "😊", {
-    duration: 3000, 
-    verticalPosition: "top",
-  });
-  this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
-  this.myForm.valid == true;
 }
 
 isValidField( field:string ){
@@ -50,7 +58,7 @@ isValidField( field:string ){
 }
 
 getFieldError(field:string):string | null{
-    
+
   if( !this.myForm.controls[field] ) return null;
 
   const errors = this.myForm.controls[field].errors || {};
@@ -59,9 +67,9 @@ getFieldError(field:string):string | null{
     switch(key){
       case 'required':
           return 'Este campo es requerido';
-      
-      case 'maxLength':
-        return 'Maximo 4 caracteres'
+
+      case 'pattern':
+        return 'Este campo solo admite 4 digitos';
 
     }
   }

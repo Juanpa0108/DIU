@@ -1,4 +1,4 @@
 export interface AuthInterfaces {
-    usuario: string;
+    codigoUsuario: string;
     password: string;
 }
