@@ -13,6 +13,7 @@ export class AdminServiceService {
   public url: string = 'http://localhost/DIU/src/app/backend/admin/';
   public url2 = 'http://localhost/DIU/src/app/backend/login/';
 
+  
   crearUsuario(form: user): Observable<[]>{
     return this.http.post<[]>(`${this.url}createUser.php`, form);
   }
