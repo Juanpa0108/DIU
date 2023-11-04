@@ -22,8 +22,7 @@ export class CreateCourseComponent implements OnInit {
     nombre: ['', [ Validators.required ]],
     profesorAsignado: ['', [ Validators.required ]],
     })
-
-    public teacher:user[] = []
+public teacher:user[] = []
 
   ngOnInit(): void {
     this.myService.traerProfesor().subscribe( res => {
@@ -59,7 +58,7 @@ isValidField( field:string ){
 }
 
 getFieldError(field:string):string | null{
-    
+
   if( !this.myForm.controls[field] ) return null;
 
   const errors = this.myForm.controls[field].errors || {};
@@ -68,7 +67,7 @@ getFieldError(field:string):string | null{
     switch(key){
       case 'required':
           return 'Este campo es requerido';
-      
+
       case 'pattern':
         return 'Este campo solo admite 4 digitos';
 

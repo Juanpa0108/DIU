@@ -1,56 +1,56 @@
 <div class="container">
 
-    
-        
-        <div class="flex flex-row flex-wrap ">
-            <form [formGroup]="myForm" (ngSubmit)="onSave()">
-            <div class="flex flex-column w-30rem h-30rem">
-            
-                <span *ngIf="isValidField('codigoCurso')"
-                      class="form-text text-danger">
-                   {{ getFieldError('codigoCurso') }}
-                </span>
-                <mat-form-field appearance="outline">
-                    <mat-label>Codigo curso</mat-label>
-                    <input type="number" matInput placeholder="Ingrese codigo del curso" formControlName="codigoCurso">
-                </mat-form-field>
-            
-                <span *ngIf="isValidField('nombre')"
-                      class="form-text text-danger">
-                   {{ getFieldError('nombre') }}
-                </span>
-                <mat-form-field appearance="outline">
-                    <mat-label>Nombre del curso</mat-label>
-                    <input type="text" matInput placeholder="Ingrese nombre del curso" formControlName="nombre">
-                </mat-form-field>
-                    
-                <span *ngIf="isValidField('profesorAsignado')"
-                      class="form-text text-danger">
-                   {{ getFieldError('profesorAsignado') }}
-                </span>
-                <mat-form-field appearance="outline">
-                    <mat-label>Elige profesor</mat-label>
-                    <mat-select formControlName="profesorAsignado">
-                      <mat-option *ngFor="let profesor of teacher" [value]="profesor.nombre"> {{ profesor.nombre }} </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            
-                <div class=" d-flex justify-content-center">
-                    <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit" >
-                        <mat-icon>save_as</mat-icon>
-                        Crear curso
-                    </button>
-                </div>
-                
-                
-            </div>
-        </form>
-            
-        </div>
 
-            
-            
-        
-    
+
+    <div class="flex flex-row flex-wrap ">
+        <form [formGroup]="myForm" (ngSubmit)="onSave()">
+        <div class="flex flex-column w-30rem h-30rem">
+
+            <span *ngIf="isValidField('codigoCurso')"
+                  class="form-text text-danger">
+               {{ getFieldError('codigoCurso') }}
+            </span>
+            <mat-form-field appearance="outline">
+                <mat-label>Codigo curso</mat-label>
+                <input type="number" matInput placeholder="Ingrese codigo del curso" formControlName="codigoCurso">
+            </mat-form-field>
+
+            <span *ngIf="isValidField('nombre')"
+                  class="form-text text-danger">
+               {{ getFieldError('nombre') }}
+            </span>
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre del curso</mat-label>
+                <input type="text" matInput placeholder="Ingrese nombre del curso" formControlName="nombre">
+            </mat-form-field>
+
+            <span *ngIf="isValidField('profesorAsignado')"
+                  class="form-text text-danger">
+               {{ getFieldError('profesorAsignado') }}
+            </span>
+<mat-form-field appearance="outline">
+                <mat-label>Elige profesor</mat-label>
+                <mat-select formControlName="profesorAsignado">
+                  <mat-option *ngFor="let profesor of teacher" [value]="profesor.nombre"> {{ profesor.nombre }} </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class=" d-flex justify-content-center">
+                <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit" >
+                    <mat-icon>save_as</mat-icon>
+                    Crear curso
+                </button>
+            </div>
+
+
+        </div>
+    </form>
+
+    </div>
+
+
+
+
+
 
 </div>
