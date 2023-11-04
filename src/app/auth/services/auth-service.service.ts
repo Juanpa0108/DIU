@@ -23,9 +23,10 @@ export class AuthServiceService {
     return this.http.post<user>(`${this.url2}userLogin.php`, data);
   }
 
-  changePassword(formulario:AuthInterfaces):Observable<[]>{
-    return this.http.post<[]>(`${this.url2}changePassword.php`, formulario);
+  changePassword(formulario:AuthInterfaces):Observable<any>{
+    return this.http.post<any>(`${this.url2}changePassword.php`, formulario);
   }
+  
   
 
 }
