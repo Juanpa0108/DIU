@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminServiceService } from 'src/app/admin/services/admin-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -15,6 +16,7 @@ export class ChangePasswordComponent {
     private fb:FormBuilder,
     private miService:AuthServiceService,
     private _snackBar: MatSnackBar,
+    private route: Router
     
   ){}
 
@@ -31,15 +33,20 @@ export class ChangePasswordComponent {
   onLogin(){
     if(!this.cambiarContrasenia.valid) return;
 
-    
+    //arreglar el error con el manejo de los datos
     this.miService.changePassword(this.cambiarContrasenia.value).subscribe( (data) => {
-      
-    },(error)=>{
-      this._snackBar.open("Cambio de contraseña exitoso", "😁", {
+      this._snackBar.open("Usario no encontrado", "😶‍🌫️", {
         duration: 3000, 
         verticalPosition: "top",
       });
+    },(error)=>{
+      
+        this._snackBar.open("Cambio de contraseña exitoso", "😁", {
+          duration: 3000, 
+          verticalPosition: "top",
+        });
     })
+    this.route.navigate(['/auth/login'])
   }
 
 }
