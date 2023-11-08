@@ -11,6 +11,7 @@ import { GenerateReportsComponent } from './pages/generate-reports/generate-repo
 import { DeleteUserPageComponent } from './pages/delete-user-page/delete-user-page.component';
 import { DeleteCoursePageComponent } from './pages/delete-course-page/delete-course-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
 
 
 
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CreateCourseComponent,
     GenerateReportsComponent,
     DeleteUserPageComponent,
-    DeleteCoursePageComponent
+    DeleteCoursePageComponent,
+    DialogDeleteUserComponent
   ],
   imports: [
     CommonModule,

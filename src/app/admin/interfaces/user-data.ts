@@ -1,4 +1,5 @@
 export interface user {
+    id?:number,
     codigo: number;
     nombre: string;
     password?: string;

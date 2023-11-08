@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 
@@ -10,19 +10,21 @@ import { switchMap } from 'rxjs';
   `
   ]
 })
-export class LayoutTeacherPageComponent {
-  constructor(
-    private route:Router, 
-    private activatedRouter:ActivatedRoute
-    ){
+export class LayoutTeacherPageComponent implements OnInit {
+  
+  constructor(private activatedRouter:ActivatedRoute,
+              private router: Router,){
     
+  }
+  // private activatedRouter = inject(ActivatedRoute);
+  id?:number;
+
+
+  ngOnInit(): void {
+    this.activatedRouter.params.subscribe((params) => {
+      console.log(params);
+      this.id=params['id']
+    })
   }
 
-  id?:number;
-  prueba(){
-    this.activatedRouter.params.pipe(
-      switchMap(({id})=>this.id=id)
-    )
-    
-  }
 }

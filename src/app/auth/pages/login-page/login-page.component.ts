@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,30 +12,26 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 })
 export class LoginPageComponent {
 
-  constructor(
-              private miservice:AuthServiceService,
-              private router:Router,
-              private fb:FormBuilder,
-              private _snackBar: MatSnackBar
-              ){}
-  
+  private miservice = inject(AuthServiceService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  public passwordIncorrecta:boolean = false;
+  public hide:boolean = true;
+  public usuario!:user;
   public myForm:FormGroup = this.fb.group({
     usuario: ['', [ Validators.required ]],
     password: ['', [ Validators.required ]]
   })
 
-  public passwordIncorrecta:boolean = false;
-  public hide:boolean = true;
-  public usuario!:user;
-
+ 
   searchUser(): void{
     this.miservice.userLogin(this.myForm.value).subscribe(res =>{
       if(res){
         this.usuario = res;
         if(this.usuario.tipo == 'profesor'){
-          this.router.navigate(['/teacher/teacher', this.usuario.codigo])
+          this.router.navigate(['/teacher/teacher', this.usuario.id])
         }else{
-          this.router.navigate(['/student/student', this.usuario.codigo])
+          this.router.navigate(['/student/student', this.usuario.id])
         }
       }else{
         this.passwordIncorrecta = true

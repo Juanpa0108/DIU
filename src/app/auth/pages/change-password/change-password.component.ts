@@ -12,22 +12,15 @@ import { Router } from '@angular/router';
 })
 export class ChangePasswordComponent {
   
-  constructor(
-    private fb:FormBuilder,
-    private miService:AuthServiceService,
-    private _snackBar: MatSnackBar,
-    private route: Router
-    
-  ){}
-
-  // private miService = inject(AuthServiceService);
-  // private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private _snackBar = inject(MatSnackBar);
+  private miService = inject(AuthServiceService);
+  private fb = inject(FormBuilder);
   public hide:boolean = true;
-
   public cambiarContrasenia:FormGroup = this.fb.group({
     codigoUsuario: ['', [ Validators.required ]],
     password: ['', [ Validators.required ]]
-  })
+  });
 
 
   onLogin(){
