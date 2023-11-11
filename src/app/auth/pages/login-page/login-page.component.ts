@@ -27,6 +27,7 @@ export class LoginPageComponent {
   searchUser(): void{
     this.miservice.userLogin(this.myForm.value).subscribe(res =>{
       if(res){
+        sessionStorage.setItem('user', JSON.stringify(res));
         this.usuario = res;
         if(this.usuario.tipo == 'profesor'){
           this.router.navigate(['/teacher/teacher', this.usuario.id])
@@ -44,13 +45,13 @@ export class LoginPageComponent {
     if(!this.myForm.valid) return;
 
     this.miservice.consulta(this.myForm.value).subscribe( res => {
+      sessionStorage.setItem('user', JSON.stringify(res));
       if(res){
         this.router.navigateByUrl('/admin/admin');
       }else if(!res){
         this.searchUser()
-          }
-          
-        })
+      }
+      })
       }
   
 

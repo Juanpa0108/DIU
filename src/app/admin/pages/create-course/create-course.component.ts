@@ -33,13 +33,13 @@ export class CreateCourseComponent implements OnInit {
 
     this.myService.courseId(this.myForm.get('codigoCurso')!.value).subscribe(res =>{
       if(!res){
-        this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
-        this._snackBar.open("Curso creado correctamente", "😊", {
-          duration: 3000, 
-          verticalPosition: "top",
-        });
-        this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
-        this.myForm.valid == true;
+         this.myService.crearCurso(this.myForm.value).subscribe(res=> {})
+         this._snackBar.open("Curso creado correctamente", "😊", {
+           duration: 3000, 
+           verticalPosition: "top",
+         });
+         this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
+         this.myForm.valid == true;   
       }else{
         this._snackBar.open("El curso ya existe", "😅", {
           duration: 3000, 

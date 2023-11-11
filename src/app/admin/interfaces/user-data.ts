@@ -7,7 +7,7 @@ export interface user {
 }
 
 export interface curso {
-    codigoCurso: number;
-    nombreCurso: string;
+    codigo: number;
+    nombre: string;
     profesorAsignado: string;
 }

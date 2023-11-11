@@ -8,7 +8,7 @@
     $json = file_get_contents('php://input');
     $params = json_decode($json);
 
-    $consulta = "INSERT INTO usuarios (codigo, nombre, password, tipo) VALUES (?, ?, ?, ?, )";
+    $consulta = "INSERT INTO usuarios (codigo, nombre, password, tipo) VALUES (?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($conexion, $consulta);
             mysqli_stmt_bind_param($stmt, "isss", $params->codigoUsuario, $params->usuario, $params->password, $params->rol);

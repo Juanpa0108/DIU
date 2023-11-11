@@ -14,49 +14,51 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DeleteUserPageComponent implements OnInit {
   
-  private myService = inject(AdminServiceService);
-  public usuarios: user[]=[];
-  private dialogo = inject(MatDialog);
-  private _snackBar = inject(MatSnackBar);
-  public dataSource = new MatTableDataSource<user>();
-  public displayedColumns: string[] = ['codigo', 'nombre', 'tipo', 'eliminar'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+   private myService = inject(AdminServiceService);
+   public usuarios: user[]=[];
+   private dialogo = inject(MatDialog);
+   private _snackBar = inject(MatSnackBar);
+   public dataSource = new MatTableDataSource<user>();
+   public displayedColumns: string[] = ['codigo', 'nombre', 'tipo', 'eliminar'];
+   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngOnInit(): void {
-    this.myService.traerUsuarios().subscribe((res) => {
-    this.usuarios=res; 
-    this.dataSource = new MatTableDataSource(this.usuarios) 
-    this.dataSource.paginator= this.paginator;
+   ngOnInit(): void {
+     this.myService.traerUsuarios().subscribe((res) => {
+     this.usuarios=res; 
+     this.dataSource = new MatTableDataSource(this.usuarios) 
+     this.dataSource.paginator= this.paginator;
 
-    })
-  }
+     })
+   }
 
-  onPageChange(event: PageEvent) {
-    if(this.dataSource.paginator == null) return;
-    this.dataSource.paginator.pageIndex = event.pageIndex;
-    this.dataSource.paginator.pageSize = event.pageSize;
-  }
+   onPageChange(event: PageEvent) {
+     if(this.dataSource.paginator == null) return;
+     this.dataSource.paginator.pageIndex = event.pageIndex;
+     this.dataSource.paginator.pageSize = event.pageSize;
+   }
 
-  onDelete(user:user){
-    this.dialogo
-    .open(DialogDeleteUserComponent, {
-      data: `Esta seguro que desea eliminar a ${user.nombre}`
-    })
-    .afterClosed().subscribe(
-      (confirmado: Boolean) => {
-        if(!confirmado) return; 
+   onDelete(user:user){
+     this.dialogo
+     .open(DialogDeleteUserComponent, {
+       data: `Esta seguro que desea eliminar a ${user.nombre}`
+     })
+     .afterClosed().subscribe(
+       (confirmado: Boolean) => {
+         if(!confirmado) return; 
 
         this.myService.eliminarUsuario(user.codigo).subscribe(
-          () =>{ },
+          (res) =>{ 
+            this._snackBar.open("Usuario eliminado", "😎", {
+              duration: 1500,
+              verticalPosition: "top"
+            })
+           },
           (error)=>{
-              this._snackBar.open("Usuario eliminado", "😎", {
-               duration: 1500,
-               verticalPosition: "top"
-             })
+              console.log("Error", error)
           }
         )
-      }
-    )
-  }
+       }
+     )
+   }
   
 }
