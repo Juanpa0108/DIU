@@ -46,4 +46,8 @@ export class AdminServiceService {
     return this.http.post<any>(`${this.url}deleteUser.php`, {codigo});
   }
 
+  eliminarCurso(codigoCurso:number):Observable<any>{
+    return this.http.post<any>(`${this.url}deleteCourse.php`, {codigoCurso});
+  }
+
 }

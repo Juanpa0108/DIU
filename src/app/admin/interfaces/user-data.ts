@@ -8,6 +8,6 @@ export interface user {
 
 export interface curso {
     codigoCurso: number;
-    nombre: string;
+    nombreCurso: string;
     profesorAsignado: string;
 }

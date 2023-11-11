@@ -49,10 +49,10 @@ export class DeleteUserPageComponent implements OnInit {
         this.myService.eliminarUsuario(user.codigo).subscribe(
           () =>{ },
           (error)=>{
-            this._snackBar.open("Usuario eliminado", "😎", {
-              duration: 1500,
-              verticalPosition: "top"
-            })
+              this._snackBar.open("Usuario eliminado", "😎", {
+               duration: 1500,
+               verticalPosition: "top"
+             })
           }
         )
       }

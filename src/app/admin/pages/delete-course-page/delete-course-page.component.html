@@ -1,1 +1,33 @@
-<p>delete-course-page works!</p>
+<div class="container mt-5">
+
+    <table mat-table [dataSource]="dataCurso" class="mat-elevation-z8" multiTemplateDataRows>
+
+        <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef> Codigo </th>
+            <td mat-cell *matCellDef="let curso"> {{curso.codigo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreCurso">
+            <th mat-header-cell *matHeaderCellDef> Nombre Curso </th>
+            <td mat-cell *matCellDef="let curso"> {{curso.nombreCurso}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profesorAsignado">
+            <th mat-header-cell *matHeaderCellDef> Profesor Asignado </th>
+            <td mat-cell *matCellDef="let curso"> {{curso.profesorAsignado}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let curso"> 
+                <mat-icon style="cursor: pointer;" (click)="onDelete(curso)" color="warn"> delete </mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columCursos"></tr>
+        <tr mat-row *matRowDef="let row; columns: columCursos;"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons #paginador></mat-paginator>
+
+</div>
