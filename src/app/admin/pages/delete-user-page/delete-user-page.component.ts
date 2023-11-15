@@ -23,12 +23,7 @@ export class DeleteUserPageComponent implements OnInit {
    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
    ngOnInit(): void {
-     this.myService.traerUsuarios().subscribe((res) => {
-     this.usuarios=res; 
-     this.dataSource = new MatTableDataSource(this.usuarios) 
-     this.dataSource.paginator= this.paginator;
-
-     })
+     this.traerUsuario();
    }
 
    onPageChange(event: PageEvent) {
@@ -52,6 +47,7 @@ export class DeleteUserPageComponent implements OnInit {
               duration: 1500,
               verticalPosition: "top"
             })
+            this.traerUsuario();
            },
           (error)=>{
               console.log("Error", error)
@@ -61,4 +57,11 @@ export class DeleteUserPageComponent implements OnInit {
      )
    }
   
+   traerUsuario():void{
+    this.myService.traerUsuarios().subscribe((res) => {
+      this.usuarios=res; 
+      this.dataSource = new MatTableDataSource(this.usuarios) 
+      this.dataSource.paginator= this.paginator;
+      })
+   }
 }

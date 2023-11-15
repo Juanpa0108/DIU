@@ -7,6 +7,7 @@ export interface user {
 }
 
 export interface curso {
+    nombreCurso?:string;
     codigo: number;
     nombre: string;
     profesorAsignado: string;

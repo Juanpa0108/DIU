@@ -28,16 +28,15 @@ export class ChangePasswordComponent {
 
     //arreglar el error con el manejo de los datos
     this.miService.changePassword(this.cambiarContrasenia.value).subscribe( (data) => {
-      this._snackBar.open("Usario no encontrado", "😶‍🌫️", {
+      this._snackBar.open("Cambio de contraseña exitoso", "😁", {
         duration: 3000, 
         verticalPosition: "top",
       });
     },(error)=>{
-      
-        this._snackBar.open("Cambio de contraseña exitoso", "😁", {
-          duration: 3000, 
-          verticalPosition: "top",
-        });
+      this._snackBar.open("Usario no encontrado", "😶‍🌫️", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
     })
     this.route.navigate(['/auth/login'])
   }

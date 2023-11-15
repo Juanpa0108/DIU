@@ -23,12 +23,7 @@ export class DeleteCoursePageComponent implements OnInit{
  @ViewChild('paginador') paginador!: MatPaginator;
 
  ngOnInit(): void {
-
-   this.myService.traerCursos().subscribe((res) => {
-     this.cursos=res; 
-     this.dataCurso = new MatTableDataSource(this.cursos); 
-     this.dataCurso.paginator = this.paginador;
-   })
+   this.peticionTraerCurso();
  }
 
  onPageChange(event: PageEvent) {
@@ -40,7 +35,7 @@ export class DeleteCoursePageComponent implements OnInit{
  onDelete(curso: curso){
    this.dialogo
    .open(DialogDeleteUserComponent, {
-     data: `Esta seguro que desea eliminar el curso de ${curso.nombre}`
+     data: `Esta seguro que desea eliminar el curso de ${curso.nombreCurso}`
    })
    .afterClosed().subscribe(
      (confirmado: Boolean) => {
@@ -52,6 +47,9 @@ export class DeleteCoursePageComponent implements OnInit{
             duration: 1500,
             verticalPosition: "top"
           })
+
+          this.peticionTraerCurso();
+
           },
          (error)=>{
            console.log('error', error)
@@ -60,4 +58,13 @@ export class DeleteCoursePageComponent implements OnInit{
      }
    )
  }
+
+ peticionTraerCurso():void{
+  this.myService.traerCursos().subscribe((res) => {
+    this.cursos=res; 
+    this.dataCurso = new MatTableDataSource(this.cursos); 
+    this.dataCurso.paginator = this.paginador;
+  })
+ }
+
 }

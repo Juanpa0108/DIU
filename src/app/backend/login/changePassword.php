@@ -12,14 +12,16 @@
 
     $stmt = mysqli_prepare($conexion, $consulta);
             mysqli_stmt_bind_param($stmt, "ss", $params->password, $params->codigoUsuario);
-            mysqli_stmt_execute($stmt);
+    $exito = mysqli_stmt_execute($stmt);
 
-    $resultado = mysqli_stmt_get_result($stmt);
+    if ($exito) {
+        $respuesta = array("mensaje" => "La contraseña se cambio correctamente");
+    } else {
+        $respuesta = array("error" => "Error al cambiar la contraseña");
+    }
 
-    $admin = mysqli_fetch_assoc($resultado);
 
-
-    $cad = json_encode($admin);
+    $cad = json_encode($respuesta);
     echo $cad;
     header('Content-Type: application/json');
 ?>
