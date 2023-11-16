@@ -22,7 +22,6 @@ export class LayoutTeacherPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRouter.params.subscribe((params) => {
-      console.log(params);
       this.id=params['id']
     })
   }

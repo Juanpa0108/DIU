@@ -21,14 +21,15 @@ export class LoginPageComponent {
   public myForm:FormGroup = this.fb.group({
     usuario: ['', [ Validators.required ]],
     password: ['', [ Validators.required ]]
-  })
+  });
+  private admin?:user
 
  
   searchUser(): void{
     this.miservice.userLogin(this.myForm.value).subscribe(res =>{
       if(res){
-        sessionStorage.setItem('user', JSON.stringify(res));
         this.usuario = res;
+        sessionStorage.setItem('user', JSON.stringify(this.usuario.nombre));
         if(this.usuario.tipo == 'profesor'){
           this.router.navigate(['/teacher/teacher', this.usuario.id])
         }else{
@@ -45,6 +46,7 @@ export class LoginPageComponent {
     if(!this.myForm.valid) return;
 
     this.miservice.consulta(this.myForm.value).subscribe( res => {
+      
       sessionStorage.setItem('user', JSON.stringify(res));
       if(res){
         this.router.navigateByUrl('/admin/admin');
