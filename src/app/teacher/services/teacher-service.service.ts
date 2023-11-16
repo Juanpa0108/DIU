@@ -11,7 +11,7 @@ export class TeacherServiceService {
   private http = inject(HttpClient)
   private url = "http://localhost/DIU/src/app/backend/teacher/"
 
-  cursosDeProfesor(nombre:string):Observable<curso[]>{
+  cursosDeProfesor(nombre:any):Observable<curso[]>{
     return this.http.post<curso[]>(`${this.url}courseByTeacher.php`, {nombre});
   }
 }

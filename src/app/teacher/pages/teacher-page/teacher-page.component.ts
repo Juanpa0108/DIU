@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { user } from 'src/app/admin/interfaces/user-data';
+import { curso, user } from 'src/app/admin/interfaces/user-data';
 import { TeacherServiceService } from '../../services/teacher-service.service';
 
 @Component({
@@ -11,14 +11,17 @@ export class TeacherPageComponent implements OnInit {
 
   private user!:any;
   private myService= inject(TeacherServiceService);
+  public cursos:curso[] = [];
 
   ngOnInit(): void {
     this.user = sessionStorage.getItem('user'); 
-     this.myService.cursosDeProfesor(this.user.nombre).subscribe(res =>{
-       console.log(res)
+
+     this.myService.cursosDeProfesor(this.user).subscribe(res =>{
+       this.cursos = res;
      },
-     (error) => {console.log(error)})
-  console.log(this.user)
+     (error) => {console.log("error",error)})
+  // console.log(this.user)
  }
+ 
 
 }

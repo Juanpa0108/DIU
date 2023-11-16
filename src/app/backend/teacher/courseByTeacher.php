@@ -8,14 +8,14 @@
     $params = json_decode($json);
     $nombre = $params->nombre;
 
-    $consulta = "SELECT * FROM cursos WHERE profesorAsignado = `$nombre`";
+    $consulta = "SELECT * FROM cursos WHERE profesorAsignado = $nombre";
     $resultado = mysqli_query($conexion, $consulta);
 
-    $data = array();
+     $data = array();
 
-    while ($fila = mysqli_fetch_assoc($resultado)) {
-        $data[] = $fila;
-    }
+     while ($fila = mysqli_fetch_assoc($resultado)) {
+         $data[] = $fila;
+     }
 
     echo json_encode($data);
 
