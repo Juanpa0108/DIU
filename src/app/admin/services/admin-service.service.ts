@@ -50,4 +50,7 @@ export class AdminServiceService {
     return this.http.post<any>(`${this.url}deleteCourse.php`, {codigoCurso});
   }
 
+  crearTabla(nombre:string):Observable<any>{
+    return this.http.post<any>(`${this.url}tableCourses.php`, {nombre});
+  }
 }

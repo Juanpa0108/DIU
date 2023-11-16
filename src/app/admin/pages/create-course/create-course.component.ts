@@ -28,6 +28,13 @@ export class CreateCourseComponent implements OnInit {
     })
   }
 
+  crearTablaCurso(nombre:string){
+    this.myService.crearTabla(nombre).subscribe(res =>{
+      console.log("respuesta", res)
+    },
+    (error)=>{console.log("error", error)})
+  }
+
   onSave(){
     if(! this.myForm.valid) return;
 
@@ -38,6 +45,7 @@ export class CreateCourseComponent implements OnInit {
            duration: 3000, 
            verticalPosition: "top",
          });
+         this.crearTablaCurso(this.myForm.get('nombre')?.value)
          this.myForm.reset({codigoCurso: '', nombre:'', profesorAsignado: ''});
          this.myForm.valid == true;   
       }else{

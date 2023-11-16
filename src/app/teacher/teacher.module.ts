@@ -8,6 +8,7 @@ import { MaterialModule } from '../material/material.module';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReportsComponent } from './pages/reports/reports.component';
   imports: [
     CommonModule,
     TeacherRoutingModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ]
 })
 export class TeacherModule { }
