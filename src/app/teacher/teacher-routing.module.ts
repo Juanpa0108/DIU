@@ -12,12 +12,12 @@ const routes: Routes = [
     path: '',
     component: LayoutTeacherPageComponent,
     children:[
-    {path:'teacher/:id', component: TeacherPageComponent},
+    {path:'teacher', component: TeacherPageComponent},
     {path:'courses', component: CoursesComponent},
     {path:'notes', component: NotesComponent},
     {path:'reports', component: ReportsComponent},
     {path:'404', component: ErrorPageComponent},
-    {path: '**', redirectTo: '404'}
+    {path: '**', redirectTo: 'teacher'}
    ]
   }
 ];

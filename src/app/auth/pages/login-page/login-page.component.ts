@@ -31,9 +31,9 @@ export class LoginPageComponent {
         this.usuario = res;
         sessionStorage.setItem('user', JSON.stringify(this.usuario.nombre));
         if(this.usuario.tipo == 'profesor'){
-          this.router.navigate(['/teacher/teacher', this.usuario.id])
+          this.router.navigate(['/teacher/teacher'])
         }else{
-          this.router.navigate(['/student/student', this.usuario.id])
+          this.router.navigate(['/student/student'])
         }
       }else{
         this.passwordIncorrecta = true

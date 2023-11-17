@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row mt-5">
 
-        <div class="col-6" *ngFor="let curso of cursos">
-            <mat-card class="example-card">
-                <img src="https://images-ext-2.discordapp.net/external/xwlwaWH19g68zbSLHqoh4d6w2VjDkngf8-KWO3xqXaY/https/4kwallpapers.com/images/wallpapers/texture-dark-background-purple-4480x2520-3086.jpg" alt="Photo of a Shiba Inu" style="height: 200px;" >
+        <div class="col-6" *ngFor="let curso of cursos; let index = index">
+            <mat-card class="example-card" (click)="enviarACurso(curso.nombreCurso)">
+                <img [src]="asignarImagen()" alt="Photo of a Shiba Inu" style="height: 200px;" >
                 <mat-card-content>
                   <h4>{{curso.codigo}} - {{curso.nombreCurso | titlecase}}</h4>
                 </mat-card-content>

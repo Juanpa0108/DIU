@@ -14,4 +14,8 @@ export class TeacherServiceService {
   cursosDeProfesor(nombre:any):Observable<curso[]>{
     return this.http.post<curso[]>(`${this.url}courseByTeacher.php`, {nombre});
   }
+
+  tablaCurso(nombre:any):Observable<any>{
+    return this.http.post<any>(`${this.url}tablaCursos.php`, {nombre});
+  }
 }
