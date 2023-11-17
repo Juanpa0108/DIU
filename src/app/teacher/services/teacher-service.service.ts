@@ -15,7 +15,9 @@ export class TeacherServiceService {
     return this.http.post<curso[]>(`${this.url}courseByTeacher.php`, {nombre});
   }
 
-  tablaCurso(nombre:any):Observable<any>{
-    return this.http.post<any>(`${this.url}tablaCursos.php`, {nombre});
+  tablaCurso(nombre:any){
+    const nombreSinComillas = nombre.nombre.replace(/^"(.*)"$/, '$1');
+    return this.http.post<any>(`${this.url}tablaCursos.php`, {nombre: nombreSinComillas });
   }
+
 }

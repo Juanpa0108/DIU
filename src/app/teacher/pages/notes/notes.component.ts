@@ -13,9 +13,10 @@ export class NotesComponent implements OnInit{
 
   ngOnInit(): void {
     this.nombre = sessionStorage.getItem('curso')
-    this.myService.tablaCurso(this.nombre).subscribe(res =>{
+    this.myService.tablaCurso({nombre: this.nombre}).subscribe(res =>{
       console.log(res)
     })
+
   }
 
 }
