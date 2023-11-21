@@ -9,6 +9,7 @@ import { CoursesComponent } from './pages/courses/courses.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     TeacherRoutingModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class TeacherModule { }
