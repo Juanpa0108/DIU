@@ -5,8 +5,30 @@
 }
 
 form{
-    display: flex;
+   
     justify-content: center;
     align-items: center;
     margin-top: 25px;
+    height: 150px;
 }
+
+.formulario2{
+  justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    height: 240px;
+}
+
+.example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+  

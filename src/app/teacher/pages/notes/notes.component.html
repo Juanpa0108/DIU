@@ -2,7 +2,7 @@
 
     <div class="row">
 
-            <button mat-fab extended color="primary" class="mr-3" (click)="addUsuario=true">
+            <!-- <button mat-fab extended color="primary" class="mr-3" (click)="addUsuario=true">
               <mat-icon>person_add</mat-icon>
               Añadir estudiantes
             </button>
@@ -10,11 +10,11 @@
             <button mat-fab extended color="primary" (click)="addNota=true">
               <mat-icon>add_notes</mat-icon>
               Añadir nueva nota
-            </button>
+            </button> -->
 
             <!-- formulario para añadir estudiantes -->
             
-            <form [formGroup]="myForm" (ngSubmit)="onSave()" *ngIf="addUsuario">
+            <!-- <form [formGroup]="myForm" (ngSubmit)="onSave()" *ngIf="addUsuario">
               <div class="flex flex-column w-30rem h-30rem">
                   
                   <span *ngIf="isValidField('seleccionarEstudiante')"
@@ -38,10 +38,10 @@
               
               
               </div>
-          </form>
+          </form> -->
 
           <!-- formulario para añadir notas -->
-          <form [formGroup]="myForm2" (ngSubmit)="guardarNota()" *ngIf="addNota">
+          <!-- <form [formGroup]="myForm2" (ngSubmit)="guardarNota()" *ngIf="addNota">
             <div class="flex flex-column w-30rem h-30rem">
                 
                 <span *ngIf="isValidField2('tipoNota')"
@@ -73,7 +73,95 @@
             
             
             </div>
-        </form>
+        </form> -->
     
+        <mat-accordion class="example-headers-align" multi>
+
+         <!-- añadir estudiante -->
+         <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+           <mat-expansion-panel-header>
+             <mat-panel-title>
+               Añadir estudiante
+             </mat-panel-title>
+             <mat-panel-description>
+               Seleccione estudiante para añadir al curso
+               <mat-icon>person_add</mat-icon>
+             </mat-panel-description>
+           </mat-expansion-panel-header>
+       
+           <form [formGroup]="myForm" (ngSubmit)="onSave()" >
+            <div class="flex flex-column w-30rem h-30rem">
+                
+                <span *ngIf="isValidField('seleccionarEstudiante')"
+                      class="form-text text-danger">
+                        {{ getFieldError('seleccionarEstudiante') }}
+               </span>
+               <mat-form-field appearance="outline">
+                  <mat-label>Elige usuario para añadir</mat-label>
+                  <mat-select formControlName="seleccionarEstudiante">
+                     <mat-option [value]="usuario.nombre" *ngFor="let usuario of usuarios"> {{usuario.nombre}} </mat-option>
+                  </mat-select>
+               </mat-form-field>
+
+        
+               <div class=" d-flex justify-content-center">
+                  <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
+                     <mat-icon>save_as</mat-icon>
+                      Añadir usuario
+                  </button>
+               </div>
+            </div>
+        </form>
+       
+         </mat-expansion-panel>
+
+         <!-- añadir nota -->
+         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Añadir nota
+              </mat-panel-title>
+              <mat-panel-description>
+                Ingrese información para nuevo campo de nota
+                <mat-icon>add_notes</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+            <form [formGroup]="myForm2" (ngSubmit)="guardarNota()" class="formulario2">
+               <div class="flex flex-column w-30rem h-30rem">
+                   
+                   <span *ngIf="isValidField2('tipoNota')"
+                         class="form-text text-danger">
+                           {{ getFieldError2('tipoNota') }}
+                  </span>
+                  <mat-form-field appearance="outline">
+                     <mat-label>Elige el tipo de la nota</mat-label>
+                     <mat-select formControlName="tipoNota" >
+                        <mat-option *ngFor="let tipo of tiposNota" [value]="tipo.nombre"> {{tipo.nombre}} </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+   
+                   <span *ngIf="isValidField2('porcentaje')"
+                         class="form-text text-danger">
+                           {{ getFieldError2('porcentaje') }}
+                  </span>
+                  <mat-form-field appearance="outline">
+                     <mat-label>Porcentaje para la nota</mat-label>
+                     <input type="text" matInput placeholder="Ingrese porcentaje" formControlName="porcentaje">
+                  </mat-form-field>
+           
+                  <div class=" d-flex justify-content-center">
+                     <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
+                        <mat-icon>save_as</mat-icon>
+                         Agregar nota
+                     </button>
+                  </div>
+               
+               
+               </div>
+           </form>
+        
+          </mat-expansion-panel>
+       </mat-accordion>
     </div>
 </div>

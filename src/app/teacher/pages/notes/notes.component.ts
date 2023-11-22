@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { TeacherServiceService } from '../../services/teacher-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/app/admin/interfaces/user-data';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-notes',
@@ -10,6 +11,7 @@ import { user } from 'src/app/admin/interfaces/user-data';
 })
 export class NotesComponent implements OnInit{
 
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
   private nombre:any;
   private myService = inject(TeacherServiceService)
   private fb = inject(FormBuilder);
@@ -28,10 +30,9 @@ export class NotesComponent implements OnInit{
     {nombre:"Participación"}, 
     {nombre:"Opcional 1"}, 
     {nombre:"Opcional 2"}]
-  public addUsuario:boolean = false
-  public addNota:boolean = false
   public usuarios:user[] = []
-
+  public step:number = 0
+ 
   ngOnInit(): void {
     this.nombre = sessionStorage.getItem('curso')
     this.myService.tablaCurso({nombre: this.nombre}).subscribe(res =>{
@@ -46,11 +47,12 @@ export class NotesComponent implements OnInit{
   }
 
   onSave(){
-    this.addUsuario=false
+    this.accordion.closeAll()
   }
 
   guardarNota(){
-    this.addNota=false
+    this.accordion.closeAll()
+    
   }
 
   isValidField( field:string ){
@@ -99,7 +101,16 @@ export class NotesComponent implements OnInit{
 
   }
 
+  setStep(index: number) {
+    this.step = index;
+  }
 
+  nextStep() {
+    this.step++;
+  }
 
+  prevStep() {
+    this.step--;
+  }
 
 }
