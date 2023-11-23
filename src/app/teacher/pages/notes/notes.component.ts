@@ -3,6 +3,7 @@ import { TeacherServiceService } from '../../services/teacher-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/app/admin/interfaces/user-data';
 import { MatAccordion } from '@angular/material/expansion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-notes',
@@ -32,22 +33,46 @@ export class NotesComponent implements OnInit{
     {nombre:"Opcional 2"}]
   public usuarios:user[] = []
   public step:number = 0
+  public curso = sessionStorage.getItem('curso');
+  private _snackBar = inject(MatSnackBar);
  
   ngOnInit(): void {
     this.nombre = sessionStorage.getItem('curso')
     this.myService.tablaCurso({nombre: this.nombre}).subscribe(res =>{
-      console.log(res)
     })
 
     this.myService.traerEstudiantes().subscribe(res =>{
       this.usuarios = res
-      console.log(this.usuarios)
+   
     })
 
   }
 
   onSave(){
+
+    if(!this.myForm.valid) return;
+
     this.accordion.closeAll()
+    
+    const nombre = this.myForm.controls['seleccionarEstudiante'].value
+    const usuarioEncontrado = this.usuarios.find(usuario => usuario.nombre === nombre)
+
+    if(usuarioEncontrado){
+      const alumno = {'curso':this.curso, 'nombre':usuarioEncontrado.nombre, 'codigo':usuarioEncontrado.codigo}
+
+      this.myService.addStudent(alumno).subscribe(
+        (res)=> {
+          //TODO: arreglar que no se puedan añadir usuarios ya existentes e la tabla
+          this._snackBar.open("Usuario creado correctamente", "😅", {
+            duration: 3000, 
+            verticalPosition: "top",
+          });
+                },
+        (err)=> { 
+            console.log("error", err) 
+                }
+      )
+    }
   }
 
   guardarNota(){

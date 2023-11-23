@@ -24,4 +24,9 @@ export class TeacherServiceService {
     return this.http.get<user[]>(`${this.url}userBystudent.php`);
   }
 
+  addStudent(estudiante:any):Observable<any>{
+    const curoSinComillas= estudiante.curso.replace(/^"(.*)"$/, '$1');
+    return this.http.post<any>(`${this.url}addStudent.php`, {curso: curoSinComillas, nombre:estudiante.nombre, codigo:estudiante.codigo});
+  }
+
 }
