@@ -10,6 +10,7 @@ export class TeacherServiceService {
 
   private http = inject(HttpClient)
   private url = "http://localhost/DIU/src/app/backend/teacher/"
+  private url2 = "http://localhost/DIU/src/app/backend/login/"
 
   cursosDeProfesor(nombre:any):Observable<curso[]>{
     return this.http.post<curso[]>(`${this.url}courseByTeacher.php`, {nombre});
@@ -29,4 +30,8 @@ export class TeacherServiceService {
     return this.http.post<any>(`${this.url}addStudent.php`, {curso: curoSinComillas, nombre:estudiante.nombre, codigo:estudiante.codigo});
   }
 
+  verificarUsuaroExistente(user:any):Observable<any>{
+    const curoSinComillas= user.curso.replace(/^"(.*)"$/, '$1');
+    return this.http.post<any>(`${this.url}userByCode.php`, {curso:curoSinComillas, codigo:user.codigo});
+  }
 }

@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/app/admin/interfaces/user-data';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-notes',
@@ -35,6 +38,12 @@ export class NotesComponent implements OnInit{
   public step:number = 0
   public curso = sessionStorage.getItem('curso');
   private _snackBar = inject(MatSnackBar);
+  public data!:MatTableDataSource<any>
+
+  displayedColumns: string[] = ['codigo', 'nombre', 'nota1', 'notaFinal'];
+  columnsToDisplay: string[] = this.displayedColumns.slice();
+
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
  
   ngOnInit(): void {
     this.nombre = sessionStorage.getItem('curso')
@@ -43,9 +52,38 @@ export class NotesComponent implements OnInit{
 
     this.myService.traerEstudiantes().subscribe(res =>{
       this.usuarios = res
-   
+      this.data = new MatTableDataSource(this.usuarios)
     })
 
+    this.data.sort = this.sort;
+
+  }
+
+  addColumn() {
+    const value = this.myForm2.get('tipoNota')!.value
+    this.displayedColumns.push(value.toLowerCase());
+    this.data.data.forEach(item => item[value] = '');
+    
+    //this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
+  }
+
+  removeColumn() {
+    if (this.columnsToDisplay.length) {
+      this.columnsToDisplay.pop();
+    }
+  }
+
+  shuffle() {
+    let currentIndex = this.columnsToDisplay.length;
+    while (0 !== currentIndex) {
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // Swap
+      let temp = this.columnsToDisplay[currentIndex];
+      this.columnsToDisplay[currentIndex] = this.columnsToDisplay[randomIndex];
+      this.columnsToDisplay[randomIndex] = temp;
+    }
   }
 
   onSave(){
@@ -60,24 +98,33 @@ export class NotesComponent implements OnInit{
     if(usuarioEncontrado){
       const alumno = {'curso':this.curso, 'nombre':usuarioEncontrado.nombre, 'codigo':usuarioEncontrado.codigo}
 
-      this.myService.addStudent(alumno).subscribe(
-        (res)=> {
-          //TODO: arreglar que no se puedan añadir usuarios ya existentes e la tabla
-          this._snackBar.open("Usuario creado correctamente", "😅", {
+      this.myService.verificarUsuaroExistente({curso:this.curso, codigo:usuarioEncontrado.codigo}).subscribe(res =>{
+        if(!res){
+          this.myService.addStudent(alumno).subscribe(
+               (res)=> {
+                  this._snackBar.open("Usuario ingresado", "😶‍🌫️", {
+                    duration: 3000, 
+                    verticalPosition: "top",
+                  });
+               
+                       },
+               (err)=> { 
+                   console.log("error", err) 
+                       }
+            )
+        }else{
+          this._snackBar.open("Usuario ya existe", "😅", {
             duration: 3000, 
             verticalPosition: "top",
           });
-                },
-        (err)=> { 
-            console.log("error", err) 
-                }
-      )
+        }
+      })
     }
   }
 
   guardarNota(){
     this.accordion.closeAll()
-    
+    this.addColumn()
   }
 
   isValidField( field:string ){
