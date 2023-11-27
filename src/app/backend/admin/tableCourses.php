@@ -13,7 +13,7 @@
 
     $consulta = "CREATE TABLE `$nombre` (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        nombreEstudiante VARCHAR(32),
+        nombre VARCHAR(32),
         codigo INT(7),
         nota1 FLOAT,
         notaFinal FLOAT

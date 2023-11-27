@@ -31,16 +31,16 @@ export class NotesComponent implements OnInit{
     {nombre:"Quiz"}, 
     {nombre:"Parcial 1"}, 
     {nombre:"Parcial 2"}, 
-    {nombre:"Participación"}, 
+    {nombre:"Participacion"}, 
     {nombre:"Opcional 1"}, 
     {nombre:"Opcional 2"}]
-  public usuarios:user[] = []
+  public usuarios:any[] = []
   public step:number = 0
   public curso = sessionStorage.getItem('curso');
   private _snackBar = inject(MatSnackBar);
   public data!:MatTableDataSource<any>
 
-  displayedColumns: string[] = ['codigo', 'nombre', 'nota1', 'notaFinal'];
+  displayedColumns: string[] = [];
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -52,11 +52,18 @@ export class NotesComponent implements OnInit{
 
     this.myService.traerEstudiantes().subscribe(res =>{
       this.usuarios = res
+      console.log(this.usuarios)
       this.data = new MatTableDataSource(this.usuarios)
+    })
+
+    this.myService.mostrarColumnas({curso: this.nombre}).subscribe(res =>{
+      
+      this.displayedColumns = res
     })
 
     this.data.sort = this.sort;
 
+    
   }
 
   addColumn() {
@@ -123,8 +130,22 @@ export class NotesComponent implements OnInit{
   }
 
   guardarNota(){
+
+    if(!this.myForm2.valid) return;
     this.accordion.closeAll()
-    this.addColumn()
+    const tipo = this.myForm2.get('tipoNota')?.value.replace(/\s/g, '');
+    this.myService.addcolumn({curso:this.nombre, tipo:tipo}).subscribe(res =>{
+      console.log(res)
+       this._snackBar.open("Campo agregado correctamente", "😎", {
+         duration: 3000, 
+         verticalPosition: "top",
+       });
+    }, (error)=>{
+      this._snackBar.open("Este campo ya existe", "🙄", {
+        duration: 3000, 
+        verticalPosition: "top",
+      });
+    })
   }
 
   isValidField( field:string ){

@@ -8,7 +8,6 @@
     $json = file_get_contents('php://input');
     $params = json_decode($json);
     $curso = $params->curso;
-    $tipo = $params->tipo;
 
     $query = "SHOW COLUMNS FROM $curso";
     $result = mysqli_query($conexion, $query);
@@ -19,19 +18,9 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $columnas[] = $row['Field'];
         }
-
-        // Excluye el último atributo
-        array_pop($columnas);
-
-        //ultimo valor del array
-        $ultimo = end($columnas);
-        
-        $consulta = "alter table $curso add column $tipo varchar(20) after $ultimo";
-        $resultado = mysqli_query($conexion, $consulta);
-
     }
 
-    $cad = json_encode($resultado);
+    $cad = json_encode($columnas);
     echo $cad;
     
 ?>

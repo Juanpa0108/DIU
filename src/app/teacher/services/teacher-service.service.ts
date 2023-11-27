@@ -10,7 +10,6 @@ export class TeacherServiceService {
 
   private http = inject(HttpClient)
   private url = "http://localhost/DIU/src/app/backend/teacher/"
-  private url2 = "http://localhost/DIU/src/app/backend/login/"
 
   cursosDeProfesor(nombre:any):Observable<curso[]>{
     return this.http.post<curso[]>(`${this.url}courseByTeacher.php`, {nombre});
@@ -21,8 +20,8 @@ export class TeacherServiceService {
     return this.http.post<any>(`${this.url}tablaCursos.php`, {nombre: nombreSinComillas });
   }
 
-  traerEstudiantes():Observable<user[]>{
-    return this.http.get<user[]>(`${this.url}userBystudent.php`);
+  traerEstudiantes():Observable<any[]>{
+    return this.http.get<any[]>(`${this.url}userBystudent.php`);
   }
 
   addStudent(estudiante:any):Observable<any>{
@@ -33,5 +32,16 @@ export class TeacherServiceService {
   verificarUsuaroExistente(user:any):Observable<any>{
     const curoSinComillas= user.curso.replace(/^"(.*)"$/, '$1');
     return this.http.post<any>(`${this.url}userByCode.php`, {curso:curoSinComillas, codigo:user.codigo});
+  }
+
+  addcolumn(curso:any):Observable<boolean>{
+    const cursoSinComillas = curso.curso.replace(/^"(.*)"$/, '$1');
+    const tipoSinComillas = curso.tipo.replace(/^"(.*)"$/, '$1');
+    return this.http.post<boolean>(`${this.url}addcolumn.php`, {curso:cursoSinComillas, tipo:tipoSinComillas});
+  }
+
+  mostrarColumnas(curso:any):Observable<string[]>{
+    const cursoSinComillas = curso.curso.replace(/^"(.*)"$/, '$1');
+    return this.http.post<string[]>(`${this.url}mostrarColumnas.php`, {curso:cursoSinComillas});
   }
 }
