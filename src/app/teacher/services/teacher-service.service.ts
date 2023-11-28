@@ -40,8 +40,13 @@ export class TeacherServiceService {
     return this.http.post<boolean>(`${this.url}addcolumn.php`, {curso:cursoSinComillas, tipo:tipoSinComillas});
   }
 
-  mostrarColumnas(curso:any):Observable<string[]>{
+  mostrarNombreColumnas(curso:any):Observable<string[]>{
     const cursoSinComillas = curso.curso.replace(/^"(.*)"$/, '$1');
     return this.http.post<string[]>(`${this.url}mostrarColumnas.php`, {curso:cursoSinComillas});
+  }
+
+  mostrarFilas(curso:any):Observable<string[]> {
+    const cursoSinComillas = curso.curso.replace(/^"(.*)"$/, '$1');
+    return this.http.post<string[]>(`${this.url}userByCourse.php`, {curso:cursoSinComillas});
   }
 }

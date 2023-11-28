@@ -39,9 +39,11 @@ export class NotesComponent implements OnInit{
   public curso = sessionStorage.getItem('curso');
   private _snackBar = inject(MatSnackBar);
   public data!:MatTableDataSource<any>
-
+  
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = this.displayedColumns.slice();
+  public filaSeleccionada: number = -1;
+  public columnaSeleccionada: number = -1;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
  
@@ -52,11 +54,14 @@ export class NotesComponent implements OnInit{
 
     this.myService.traerEstudiantes().subscribe(res =>{
       this.usuarios = res
-      console.log(this.usuarios)
-      this.data = new MatTableDataSource(this.usuarios)
+      
     })
 
-    this.myService.mostrarColumnas({curso: this.nombre}).subscribe(res =>{
+    this.myService.mostrarFilas({curso: this.nombre}).subscribe(res =>{
+      this.data = new MatTableDataSource(res)
+    })
+
+    this.myService.mostrarNombreColumnas({curso: this.nombre}).subscribe(res =>{
       
       this.displayedColumns = res
     })
@@ -64,6 +69,13 @@ export class NotesComponent implements OnInit{
     this.data.sort = this.sort;
 
     
+  }
+
+  activarEdicion(indice: number){
+    const nombreColumna = this.displayedColumns[indice];
+    
+    this.filaSeleccionada = indice
+    console.log(this.filaSeleccionada, nombreColumna)
   }
 
   addColumn() {
@@ -77,19 +89,6 @@ export class NotesComponent implements OnInit{
   removeColumn() {
     if (this.columnsToDisplay.length) {
       this.columnsToDisplay.pop();
-    }
-  }
-
-  shuffle() {
-    let currentIndex = this.columnsToDisplay.length;
-    while (0 !== currentIndex) {
-      let randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // Swap
-      let temp = this.columnsToDisplay[currentIndex];
-      this.columnsToDisplay[currentIndex] = this.columnsToDisplay[randomIndex];
-      this.columnsToDisplay[randomIndex] = temp;
     }
   }
 
