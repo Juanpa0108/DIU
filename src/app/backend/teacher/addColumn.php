@@ -26,7 +26,7 @@
         //ultimo valor del array
         $ultimo = end($columnas);
         
-        $consulta = "alter table $curso add column $tipo varchar(20) after $ultimo";
+        $consulta = "alter table $curso add column $tipo decimal(10, 1) after $ultimo";
         $resultado = mysqli_query($conexion, $consulta);
 
     }

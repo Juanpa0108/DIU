@@ -10,6 +10,7 @@ import { NotesComponent } from './pages/notes/notes.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SubirNotaComponent } from './components/subir-nota/subir-nota.component';
 
 
 @NgModule({
@@ -18,14 +19,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TeacherPageComponent,
     CoursesComponent,
     NotesComponent,
-    ReportsComponent
+    ReportsComponent,
+    SubirNotaComponent
   ],
   imports: [
     CommonModule,
     TeacherRoutingModule,
     MaterialModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class TeacherModule { }

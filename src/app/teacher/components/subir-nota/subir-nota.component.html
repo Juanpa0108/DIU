@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Confirmación</h1>
+<div mat-dialog-content>
+    <p>Cambiar nota de {{data.nota}}</p>
+    <input type="number" [(ngModel)]="campoNota">
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="confirmado()" cdkFocusInitial>Sí</button>
+    <button mat-button (click)="cerrarDialogo()">No</button>
+</div>

@@ -6,6 +6,8 @@ import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { SubirNotaComponent } from '../../components/subir-nota/subir-nota.component';
 
 
 @Component({
@@ -31,9 +33,7 @@ export class NotesComponent implements OnInit{
     {nombre:"Quiz"}, 
     {nombre:"Parcial 1"}, 
     {nombre:"Parcial 2"}, 
-    {nombre:"Participacion"}, 
-    {nombre:"Opcional 1"}, 
-    {nombre:"Opcional 2"}]
+    {nombre:"Participacion"}]
   public usuarios:any[] = []
   public step:number = 0
   public curso = sessionStorage.getItem('curso');
@@ -42,8 +42,10 @@ export class NotesComponent implements OnInit{
   
   displayedColumns: string[] = [];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  public filaSeleccionada: number = -1;
+  public filaSeleccionada: any 
   public columnaSeleccionada: number = -1;
+  public nombreColumna:string = "";
+  private dialogo = inject(MatDialog);
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
  
@@ -52,6 +54,14 @@ export class NotesComponent implements OnInit{
     this.myService.tablaCurso({nombre: this.nombre}).subscribe(res =>{
     })
 
+    this.completarTabla()
+
+    //this.data.sort = this.sort;
+
+    
+  }
+
+  completarTabla(){
     this.myService.traerEstudiantes().subscribe(res =>{
       this.usuarios = res
       
@@ -65,24 +75,36 @@ export class NotesComponent implements OnInit{
       
       this.displayedColumns = res
     })
-
-    this.data.sort = this.sort;
-
-    
   }
 
   activarEdicion(indice: number){
-    const nombreColumna = this.displayedColumns[indice];
-    
     this.filaSeleccionada = indice
-    console.log(this.filaSeleccionada, nombreColumna)
+    const nombre = this.filaSeleccionada.nombre
+    this.subirNota({nombre: nombre, nota: this.nombreColumna, tabla: this.curso})
+  }
+
+  subirNota(data: any){
+    this.dialogo
+     .open(SubirNotaComponent, {
+       data: data,
+     })
+     .afterClosed().subscribe(
+       (confirmado: Boolean) => {
+         if(!confirmado) return; 
+        
+         this.completarTabla()
+        })
+  }
+
+  nombreDColumna(indice: number){
+    this.nombreColumna = this.displayedColumns[indice]
   }
 
   addColumn() {
     const value = this.myForm2.get('tipoNota')!.value
     this.displayedColumns.push(value.toLowerCase());
     this.data.data.forEach(item => item[value] = '');
-    
+    this.completarTabla()
     //this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
   }
 
@@ -126,6 +148,8 @@ export class NotesComponent implements OnInit{
         }
       })
     }
+
+    this.completarTabla()
   }
 
   guardarNota(){
@@ -145,6 +169,8 @@ export class NotesComponent implements OnInit{
         verticalPosition: "top",
       });
     })
+
+    this.completarTabla()
   }
 
   isValidField( field:string ){
