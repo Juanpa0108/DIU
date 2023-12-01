@@ -28,6 +28,7 @@ export class TeacherPageComponent implements OnInit {
 
      this.myService.cursosDeProfesor(this.user).subscribe(res =>{
        this.cursos = res;
+       console.log(this.cursos);
      },
      (error) => {console.log("error",error)})
   // console.log(this.user)

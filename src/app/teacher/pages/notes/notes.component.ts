@@ -72,7 +72,6 @@ export class NotesComponent implements OnInit{
     })
 
     this.myService.mostrarNombreColumnas({curso: this.nombre}).subscribe(res =>{
-      
       this.displayedColumns = res
     })
   }

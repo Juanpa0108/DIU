@@ -9,7 +9,7 @@
     $params = json_decode($json);
     $curso = $params->curso;
     $campoNota = $params->campoNota;
-    
+
     $consulta = "UPDATE $curso SET $campoNota = ? WHERE nombre = ?";
 
     $stmt = mysqli_prepare($conexion, $consulta);

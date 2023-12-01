@@ -30,6 +30,7 @@ export class LoginPageComponent {
       if(res){
         this.usuario = res;
         sessionStorage.setItem('user', JSON.stringify(this.usuario.nombre));
+        sessionStorage.setItem('codigo', JSON.stringify(this.usuario.codigo));
         if(this.usuario.tipo == 'profesor'){
           this.router.navigate(['/teacher/teacher'])
         }else{

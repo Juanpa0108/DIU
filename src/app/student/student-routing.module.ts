@@ -11,11 +11,11 @@ const routes: Routes = [
     path:'',
     component: LayoutStudentPageComponent,
     children: [
-      {path:'student/:id', component: StudentPageComponent},
+      {path:'student', component: StudentPageComponent},
       {path:'curso', component: CursosStudentPageComponent},
       {path: 'calificaciones', component: CalificacionesStudentComponent},
       {path:'404', component: ErrorPageComponent},
-      {path: '**', redirectTo: '404'}
+      {path: '**', redirectTo: 'student'}
     ]
   }
 ];
