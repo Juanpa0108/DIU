@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutStudentPageComponent } from './pages/layout-student-page/layout-student-page.component';
 import { StudentPageComponent } from './pages/student-page/student-page.component';
 import { ErrorPageComponent } from '../shared/error-page/error-page.component';
-import { CursosStudentPageComponent } from './pages/cursos-student-page/cursos-student-page.component';
 import { CalificacionesStudentComponent } from './pages/calificaciones-student/calificaciones-student.component';
+import { TotalNotasComponent } from './pages/total-notas/total-notas.component';
 
 const routes: Routes = [
   {
@@ -12,8 +12,8 @@ const routes: Routes = [
     component: LayoutStudentPageComponent,
     children: [
       {path:'student', component: StudentPageComponent},
-      {path:'curso', component: CursosStudentPageComponent},
       {path: 'calificaciones', component: CalificacionesStudentComponent},
+      {path: 'total-notas', component: TotalNotasComponent},
       {path:'404', component: ErrorPageComponent},
       {path: '**', redirectTo: 'student'}
     ]
