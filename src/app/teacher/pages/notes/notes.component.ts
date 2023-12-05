@@ -46,6 +46,9 @@ export class NotesComponent implements OnInit{
   public columnaSeleccionada: number = -1;
   public nombreColumna:string = "";
   private dialogo = inject(MatDialog);
+  public camposDinamicos: { [nombreCampo: string]: number } = {};
+  public datosTabla:any 
+  public camposExcluidos:string[] = ['id', 'nombre', 'codigo', 'notaFinal']
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
  
@@ -57,9 +60,46 @@ export class NotesComponent implements OnInit{
     this.completarTabla()
 
     //this.data.sort = this.sort;
-
+    const camposDinamicosString = localStorage.getItem('camposDinamicos')
+    if(camposDinamicosString){
+      this.camposDinamicos = JSON.parse(camposDinamicosString)
+    }
     
   }
+
+  // calcularPromedioPonderado(datos:any[], camposDinamicos:{[nombreCampo:string]:number}, camposExcluidos:string[]=[]):{totalPonderado:number, promedio:number}{
+  //   const totalPonderado = datos.reduce((total, fila)=>{
+  //     const sumaPonderada = Object.keys(fila).reduce((suma, columna)=>{
+  //       if(!camposExcluidos.includes(columna)){
+  //         const valorNumerico = parseFloat(fila[columna]) || 0;
+  //         return suma + valorNumerico * (camposDinamicos[columna]/100);
+  //       }
+  //       return suma;
+  //     },0);
+  //     return total + sumaPonderada;
+  //   },0);
+  //   const numeroCampos = Object.keys(camposDinamicos).length - camposExcluidos.length;
+  //   const promedio = totalPonderado / (numeroCampos || 1);
+  //   return {totalPonderado, promedio}; 
+  // }
+
+  obtenerEntradasCamposDinamicos(): { nombreCampo: string; porcentaje: number }[] {
+    return Object.entries(this.camposDinamicos).map(([nombreCampo, porcentaje]) => ({ nombreCampo, porcentaje }));
+  }
+
+  agregarCampoDinamico() {
+
+    const nombreCampo = this.myForm2.get('tipoNota')?.value as string;
+    const porcentaje = this.myForm2.get('porcentaje')?.value as number;
+
+    // Verificar que el nombre del campo no esté vacío y que el porcentaje sea válido
+    if (nombreCampo && !isNaN(porcentaje)) {
+      this.camposDinamicos[nombreCampo] = porcentaje;
+      localStorage.setItem('camposDinamicos', JSON.stringify(this.camposDinamicos))
+    } else {
+      console.error('Nombre del campo o porcentaje inválido');
+    }
+}
 
   completarTabla(){
     this.myService.traerEstudiantes().subscribe(res =>{
@@ -69,6 +109,7 @@ export class NotesComponent implements OnInit{
 
     this.myService.mostrarFilas({curso: this.nombre}).subscribe(res =>{
       this.data = new MatTableDataSource(res)
+      this.datosTabla = res
     })
 
     this.myService.mostrarNombreColumnas({curso: this.nombre}).subscribe(res =>{
@@ -79,7 +120,7 @@ export class NotesComponent implements OnInit{
   activarEdicion(indice: number){
     this.filaSeleccionada = indice
     const nombre = this.filaSeleccionada.nombre
-    this.subirNota({nombre: nombre, nota: this.nombreColumna, tabla: this.curso})
+    this.subirNota({nombre: nombre, nota: this.nombreColumna, tabla: this.curso, porcentaje: this.camposDinamicos})
   }
 
   subirNota(data: any){
@@ -155,6 +196,8 @@ export class NotesComponent implements OnInit{
 
     if(!this.myForm2.valid) return;
     this.accordion.closeAll()
+    this.agregarCampoDinamico();
+    
     const tipo = this.myForm2.get('tipoNota')?.value.replace(/\s/g, '');
     this.myService.addcolumn({curso:this.nombre, tipo:tipo}).subscribe(res =>{
       console.log(res)

@@ -9,7 +9,7 @@
     $params = json_decode($json);
     $curso = $params->curso;
 
-    $consulta = "INSERT INTO $curso (nombreEstudiante, codigo) VALUES (?, ?)";
+    $consulta = "INSERT INTO $curso (nombre, codigo) VALUES (?, ?)";
 
     $stmt = mysqli_prepare($conexion, $consulta);
             mysqli_stmt_bind_param($stmt, "si", $params->nombre, $params->codigo);

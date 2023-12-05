@@ -1,115 +1,124 @@
 <div class="container mt-5">
 
-    <div class="row">
-    
-        <mat-accordion class="example-headers-align" multi>
+   <div class="row">
+
+      <mat-accordion class="example-headers-align" multi>
 
          <!-- añadir estudiante -->
          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-           <mat-expansion-panel-header>
-             <mat-panel-title>
-               Añadir estudiante
-             </mat-panel-title>
-             <mat-panel-description>
-               Seleccione estudiante para añadir al curso
-               <mat-icon>person_add</mat-icon>
-             </mat-panel-description>
-           </mat-expansion-panel-header>
-       
-           <form [formGroup]="myForm" (ngSubmit)="onSave()" >
-            <div class="flex flex-column w-30rem h-30rem">
-                
-                <span *ngIf="isValidField('seleccionarEstudiante')"
-                      class="form-text text-danger">
-                        {{ getFieldError('seleccionarEstudiante') }}
-               </span>
-               <mat-form-field appearance="outline">
-                  <mat-label>Elige usuario para añadir</mat-label>
-                  <mat-select formControlName="seleccionarEstudiante">
-                     <mat-option [value]="usuario.nombre" *ngFor="let usuario of usuarios"> {{usuario.nombre}} </mat-option>
-                  </mat-select>
-               </mat-form-field>
+            <mat-expansion-panel-header>
+               <mat-panel-title>
+                  Añadir estudiante
+               </mat-panel-title>
+               <mat-panel-description>
+                  Seleccione estudiante para añadir al curso
+                  <mat-icon>person_add</mat-icon>
+               </mat-panel-description>
+            </mat-expansion-panel-header>
 
-        
-               <div class=" d-flex justify-content-center">
-                  <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
-                     <mat-icon>save_as</mat-icon>
-                      Añadir usuario
-                  </button>
+            <form [formGroup]="myForm" (ngSubmit)="onSave()">
+               <div class="flex flex-column w-30rem h-30rem">
+
+                  <span *ngIf="isValidField('seleccionarEstudiante')" class="form-text text-danger">
+                     {{ getFieldError('seleccionarEstudiante') }}
+                  </span>
+                  <mat-form-field appearance="outline">
+                     <mat-label>Elige usuario para añadir</mat-label>
+                     <mat-select formControlName="seleccionarEstudiante">
+                        <mat-option [value]="usuario.nombre" *ngFor="let usuario of usuarios"> {{usuario.nombre}}
+                        </mat-option>
+                     </mat-select>
+                  </mat-form-field>
+
+
+                  <div class=" d-flex justify-content-center">
+                     <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
+                        <mat-icon>save_as</mat-icon>
+                        Añadir usuario
+                     </button>
+                  </div>
                </div>
-            </div>
-        </form>
-       
+            </form>
+
          </mat-expansion-panel>
 
          <!-- añadir nota -->
          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                Añadir nota
-              </mat-panel-title>
-              <mat-panel-description>
-                Ingrese información para nuevo campo de nota
-                <mat-icon>add_notes</mat-icon>
-              </mat-panel-description>
+               <mat-panel-title>
+                  Añadir nota
+               </mat-panel-title>
+               <mat-panel-description>
+                  Ingrese información para nuevo campo de nota
+                  <mat-icon>add_notes</mat-icon>
+               </mat-panel-description>
             </mat-expansion-panel-header>
-        
-            <form [formGroup]="myForm2" (ngSubmit)="guardarNota()" class="formulario2">
-               <div class="flex flex-column w-30rem h-30rem">
-                   
-                   <span *ngIf="isValidField2('tipoNota')"
-                         class="form-text text-danger">
+
+            <div class="row">
+
+               <div class="col-6">
+                  <form [formGroup]="myForm2" (ngSubmit)="guardarNota()" class="formulario2">
+                     <div class="flex flex-column w-30rem h-30rem">
+
+                        <span *ngIf="isValidField2('tipoNota')" class="form-text text-danger">
                            {{ getFieldError2('tipoNota') }}
-                  </span>
-                  <mat-form-field appearance="outline">
-                     <mat-label>Elige el tipo de la nota</mat-label>
-                     <mat-select formControlName="tipoNota" >
-                        <mat-option *ngFor="let tipo of tiposNota" [value]="tipo.nombre"> {{tipo.nombre}} </mat-option>
-                     </mat-select>
-                  </mat-form-field>
-   
-                   <span *ngIf="isValidField2('porcentaje')"
-                         class="form-text text-danger">
+                        </span>
+                        <mat-form-field appearance="outline">
+                           <mat-label>Elige el tipo de la nota</mat-label>
+                           <mat-select formControlName="tipoNota">
+                              <mat-option *ngFor="let tipo of tiposNota" [value]="tipo.nombre"> {{tipo.nombre}}
+                              </mat-option>
+                           </mat-select>
+                        </mat-form-field>
+
+                        <span *ngIf="isValidField2('porcentaje')" class="form-text text-danger">
                            {{ getFieldError2('porcentaje') }}
-                  </span>
-                  <mat-form-field appearance="outline">
-                     <mat-label>Porcentaje para la nota</mat-label>
-                     <input type="text" matInput placeholder="Ingrese porcentaje" formControlName="porcentaje">
-                  </mat-form-field>
-           
-                  <div class=" d-flex justify-content-center">
-                     <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
-                        <mat-icon>save_as</mat-icon>
-                         Agregar nota
-                     </button>
-                  </div>
-               
-               
+                        </span>
+                        <mat-form-field appearance="outline">
+                           <mat-label>Porcentaje para la nota</mat-label>
+                           <input type="text" matInput placeholder="Ingrese porcentaje" formControlName="porcentaje">
+                        </mat-form-field>
+
+                        <div class=" d-flex justify-content-center">
+                           <button mat-button mat-flat-button color="primary" class="w-12rem" type="submit">
+                              <mat-icon>save_as</mat-icon>
+                              Agregar nota
+                           </button>
+                        </div>
+
+
+                     </div>
+                  </form>
+
                </div>
-           </form>
-        
-          </mat-expansion-panel>
-       </mat-accordion>
-    </div>
 
-   
+               <div class="col">
+                  <h3>Notas ingresadas: </h3>
+                  <ul *ngIf="obtenerEntradasCamposDinamicos().length > 0">
+                     <li *ngFor="let campo of obtenerEntradasCamposDinamicos()">
+                        {{ campo.nombreCampo }} - {{ campo.porcentaje }}%
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </mat-expansion-panel>
+      </mat-accordion>
+   </div>
 
-<table mat-table [dataSource]="data" matSort class="mat-elevation-z8 mt-5"
-style="border: rgb(182, 182, 182) 1px solid; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
- 
-    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i=index">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-      <td mat-cell *matCellDef="let element"
-      (click)="nombreDColumna(i)"
-      >
-      {{element[column]}} </td>
-    </ng-container>
-  
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-  (click)="activarEdicion(row)" [class.seleccionada]="row === usuarios[filaSeleccionada]"
-  
-  ></tr>
-</table>
+
+   <table mat-table [dataSource]="data" matSort class="mat-elevation-z8 mt-5"
+      style="border: rgb(182, 182, 182) 1px solid; border-radius: 5px; box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let i=index">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+         <td mat-cell *matCellDef="let element" (click)="nombreDColumna(i)">
+            {{element[column]}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="activarEdicion(row)"
+         [class.seleccionada]="row === usuarios[filaSeleccionada]"></tr>
+   </table>
 </div>

@@ -21,13 +21,14 @@ export class SubirNotaComponent {
       this.dialogo.close(false);
     }
     confirmado(): void {
-      this.servicio.actualizarNota({curso: this.data.tabla, campo: this.data.nota, nota: this.campoNota, nombre: this.data.nombre}).subscribe(res => {
-        this._snackBar.open("Nota registrada", "🫡", {
-          duration: 3000, 
-          verticalPosition: "top",
-        });
-      })
-      this.dialogo.close(true);
+      // this.servicio.actualizarNota({curso: this.data.tabla, campo: this.data.nota, nota: this.campoNota, nombre: this.data.nombre}).subscribe(res => {
+      //   this._snackBar.open("Nota registrada", "🫡", {
+      //     duration: 3000, 
+      //     verticalPosition: "top",
+      //   });
+      // })
+      // this.dialogo.close(true);
+      console.log(this.data, this.campoNota)
 
     }
 }

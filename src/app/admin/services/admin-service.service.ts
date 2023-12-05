@@ -46,8 +46,9 @@ export class AdminServiceService {
     return this.http.post<any>(`${this.url}deleteUser.php`, {codigo});
   }
 
-  eliminarCurso(codigoCurso:number):Observable<any>{
-    return this.http.post<any>(`${this.url}deleteCourse.php`, {codigoCurso});
+  eliminarCurso(data:any):Observable<any>{
+    const cursoSinComillas = data.nombreCurso.replace(/^"(.*)"$/, '$1');
+    return this.http.post<any>(`${this.url}deleteCourse.php`, {codigoCurso: data.codigoCurso, nombreCurso: cursoSinComillas});
   }
 
   crearTabla(nombre:string):Observable<any>{

@@ -15,7 +15,6 @@
         id INT AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(32),
         codigo INT(7),
-        nota1 decimal(10, 1),
         notaFinal decimal(10, 2)
     )";
 

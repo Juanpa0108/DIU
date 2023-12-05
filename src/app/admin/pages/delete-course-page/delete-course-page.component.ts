@@ -41,7 +41,7 @@ export class DeleteCoursePageComponent implements OnInit{
      (confirmado: Boolean) => {
        if(!confirmado) return; 
 
-       this.myService.eliminarCurso(curso.codigo).subscribe(
+       this.myService.eliminarCurso({codigoCurso: curso.codigo, nombreCurso: curso.nombreCurso}).subscribe(
          (res) =>{
           this._snackBar.open("Curso eliminado", "😎", {
             duration: 1500,
