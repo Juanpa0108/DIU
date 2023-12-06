@@ -26,4 +26,8 @@ export class StudentServiceService {
     return this.http.post<string[]>(`${this.url}mostrarColumnaEstudiante.php`, {curso:cursoSinComillas});
   }
 
+  todasLasNotas(data:any):Observable<any>{
+    return this.http.post(`${this.url}todasLasNotas.php`, {codigo:data.codigo})
+  }
+
 }

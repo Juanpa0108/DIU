@@ -6,7 +6,8 @@ import { switchMap } from 'rxjs';
   selector: 'app-layout-teacher-page',
   templateUrl: './layout-teacher-page.component.html',
   styles: [`
-  span{cursor:pointer}
+  span, mat-icon
+  {cursor:pointer}
   `
   ]
 })

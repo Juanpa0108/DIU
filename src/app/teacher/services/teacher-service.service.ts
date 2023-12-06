@@ -55,4 +55,11 @@ export class TeacherServiceService {
     const campoNotaSinComillas = data.campo.replace(/^"(.*)"$/, '$1');
     return this.http.post<string>(`${this.url}addNota.php`, {curso:cursoSinComillas, campoNota:campoNotaSinComillas, nota: data.nota, nombre: data.nombre});
   }
+
+  subirNotaFinal(data:any):Observable<any>{
+    const cursoSinComillas = data.curso.replace(/^"(.*)"$/, '$1');
+    return this.http.post(`${this.url}subirNotaFinal.php`, {curso:cursoSinComillas, notaFinal:data.notaFinal , nombre:data.nombre})
+  }
+
+
 }

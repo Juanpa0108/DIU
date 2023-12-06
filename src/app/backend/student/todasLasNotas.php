@@ -48,8 +48,17 @@
             $fila = mysqli_fetch_assoc($result);
             $codigoCurso = $fila['codigo'];
     
-            // Agrega el código al array resultante
-            $tablasUsuarioConCodigo[$tabla] = $codigoCurso;
+            $sqlNotaFinal = "SELECT notaFinal FROM $tabla WHERE codigo = $codigo";
+            $resultNotaFinal = mysqli_query($conexion, $sqlNotaFinal);
+
+        if ($resultNotaFinal && mysqli_num_rows($resultNotaFinal) > 0) {
+            $filaNotaFinal = mysqli_fetch_assoc($resultNotaFinal);
+            $notaFinal = $filaNotaFinal['notaFinal'];
+
+            // Agrega un objeto al array resultante
+            $tablasUsuarioConCodigo[] = array('nombre' => $tabla, 'codigo' => $codigoCurso, 'notaFinal' => $notaFinal);
+        }
+           
         }
     
         // Incrementa el índice para avanzar al siguiente elemento en $tablasUsuario

@@ -8,3 +8,8 @@ span:hover{
     transition: transform ease 0.5s 0.1s;
     color: aliceblue;
 }
+
+
+mat-icon{
+    cursor: pointer;
+}

@@ -67,29 +67,13 @@ export class NotesComponent implements OnInit{
     
   }
 
-  // calcularPromedioPonderado(datos:any[], camposDinamicos:{[nombreCampo:string]:number}, camposExcluidos:string[]=[]):{totalPonderado:number, promedio:number}{
-  //   const totalPonderado = datos.reduce((total, fila)=>{
-  //     const sumaPonderada = Object.keys(fila).reduce((suma, columna)=>{
-  //       if(!camposExcluidos.includes(columna)){
-  //         const valorNumerico = parseFloat(fila[columna]) || 0;
-  //         return suma + valorNumerico * (camposDinamicos[columna]/100);
-  //       }
-  //       return suma;
-  //     },0);
-  //     return total + sumaPonderada;
-  //   },0);
-  //   const numeroCampos = Object.keys(camposDinamicos).length - camposExcluidos.length;
-  //   const promedio = totalPonderado / (numeroCampos || 1);
-  //   return {totalPonderado, promedio}; 
-  // }
-
   obtenerEntradasCamposDinamicos(): { nombreCampo: string; porcentaje: number }[] {
     return Object.entries(this.camposDinamicos).map(([nombreCampo, porcentaje]) => ({ nombreCampo, porcentaje }));
   }
 
   agregarCampoDinamico() {
 
-    const nombreCampo = this.myForm2.get('tipoNota')?.value as string;
+    const nombreCampo = this.myForm2.get('tipoNota')?.value.replace(/\s/g, '') as string;
     const porcentaje = this.myForm2.get('porcentaje')?.value as number;
 
     // Verificar que el nombre del campo no esté vacío y que el porcentaje sea válido

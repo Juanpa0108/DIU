@@ -92,9 +92,9 @@
 
                </div>
 
-               <div class="col">
+               <div class="col" *ngIf="obtenerEntradasCamposDinamicos().length > 0">
                   <h3>Notas ingresadas: </h3>
-                  <ul *ngIf="obtenerEntradasCamposDinamicos().length > 0">
+                  <ul>
                      <li *ngFor="let campo of obtenerEntradasCamposDinamicos()">
                         {{ campo.nombreCampo }} - {{ campo.porcentaje }}%
                      </li>
